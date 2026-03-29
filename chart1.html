@@ -1,1 +1,131 @@
-<!DOCTYPE html>  <html lang="en"> <head> <meta charset="utf-8"> <title>Marxx Creative Performance</title> <script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">  <style>   body {     margin: 0;     background: #000000;     font-family: 'Inter', sans-serif;     color: #FFFFFF;   }    .chart-container {     max-width: 1100px;     margin: 40px auto;     padding: 20px;     background: #0B0B0F;     border-radius: 20px;     box-shadow: 0 0 40px rgba(59,130,246,0.08);   }    h1 {     font-size: 20px;     font-weight: 600;     margin-bottom: 10px;   }    p {     color: #9CA3AF;     font-size: 14px;     margin-bottom: 20px;   } </style>  </head>  <body>  <div class="chart-container">   <h1>Creative Output vs Winners</h1>   <p>More creative volume increases the probability of finding winning ads</p>   <div id="chart"></div> </div>  <script> const trace1 = {   x: [5,10,15,20,25,30],   y: [0,1,1,2,2,3],   mode: 'markers',   name: 'Micro (<$10K)',   marker: {     size: 12,     color: '#60A5FA',     opacity: 0.85   } };  const trace2 = {   x: [10,20,30,40,50,60],   y: [1,2,3,4,5,6],   mode: 'markers',   name: 'Small ($10K-$50K)',   marker: {     size: 14,     color: '#3B82F6',     opacity: 0.85   } };  const trace3 = {   x: [20,40,60,80,100],   y: [2,4,6,8,10],   mode: 'markers',   name: 'Medium ($50K-$200K)',   marker: {     size: 16,     color: '#6366F1',     opacity: 0.85   } };  const trace4 = {   x: [40,80,120,160,200],   y: [5,10,15,20,25],   mode: 'markers',   name: 'Large ($200K-$1M)',   marker: {     size: 18,     color: '#A855F7',     opacity: 0.9   } };  const layout = {   paper_bgcolor: '#000000',   plot_bgcolor: '#000000',    font: {     family: 'Inter, sans-serif',     color: '#FFFFFF'   },    xaxis: {     title: 'Ads per Week',     color: '#9CA3AF',     gridcolor: '#1F2937',     zerolinecolor: '#1F2937'   },    yaxis: {     title: 'Winning Ads',     color: '#9CA3AF',     gridcolor: '#1F2937',     zerolinecolor: '#1F2937'   },    legend: {     font: { color: '#FFFFFF' }   },    margin: { t: 20 } };  Plotly.newPlot('chart', [trace1, trace2, trace3, trace4], layout); </script>  </body> </html>
+#!/usr/bin/env python3
+"""
+chart3_creation.py — Testing Efficiency Table (Marxx brand colors)
+Reads chart_3.json → generates a single interactive Plotly table.
+"""
+
+import json
+import plotly.graph_objects as go
+
+# ── Load data ──────────────────────────────────────────────────────────────────
+with open("/Users/nishant/Documents/scripts/report_2026/chart_3.json") as f:
+    data = json.load(f)
+
+rows = data["rows"]
+headers = data["headers"]
+
+# ── Marxx AI brand palette ─────────────────────────────────────────────────────
+TIER_COLORS = {
+    "Micro (<$10K)":       "#93C5FD",
+    "Small ($10K-$50K)":   "#3B82F6",
+    "Medium ($50K-$200K)": "#6366F1",
+    "Large ($200K-$1M)":   "#E879A8",
+    "Enterprise ($1M+)":   "#F59E0B",
+}
+
+BG_COLOR = "#111827" # Dark Grey / Slate 900
+HEADER_BG = "#1F2937"  # Slate 800
+ROW_EVEN_BG = "#111827"
+ROW_ODD_BG = "#1F2937"
+TEXT_COLOR = "#F9FAFB" # Light Text
+HEADER_TEXT = "#F9FAFB"
+LINE_COLOR = "#374151"
+
+
+# ── Prepare Table Data ─────────────────────────────────────────────────────────
+col_spend_tier = [r["spendTier"] for r in rows]
+col_volume = [r["averageTestingVolumePerWeek"] for r in rows]
+col_hit_rate = [f"{r['averageHitRatePercent']}%" for r in rows]
+
+# Header labels (replacing \n with <br> for HTML rendering in Plotly)
+header_labels = [h["label"].replace("\n", "<br>") for h in headers]
+
+# ── Create Plotly Table ────────────────────────────────────────────────────────
+fig = go.Figure(data=[go.Table(
+    header=dict(
+        values=header_labels,
+        fill_color=HEADER_BG,
+        align='left',
+        font=dict(color=HEADER_TEXT, size=14, family="Inter, system-ui, sans-serif"),
+        height=50
+    ),
+    cells=dict(
+        values=[col_spend_tier, col_volume, col_hit_rate],
+        fill_color=[
+            # Column 1 colors (Tier colored chips)
+            [BG_COLOR] * len(rows),
+            # Other columns background
+            [ROW_EVEN_BG if i % 2 == 0 else ROW_ODD_BG for i in range(len(rows))],
+            [ROW_EVEN_BG if i % 2 == 0 else ROW_ODD_BG for i in range(len(rows))]
+        ],
+        align='left',
+        font=dict(color=TEXT_COLOR, size=13, family="Inter, system-ui, sans-serif"),
+        height=40,
+        line_color="#E2E8F0"
+    )
+)])
+
+# Add tier-colored indicator circles or just style the Spend Tier text
+# Plotly Table is a bit limited for complex cell-level HTML, 
+# so we'll use a better approach: Colored backgrounds for the first column.
+fig.data[0].cells.fill.color = [
+    [TIER_COLORS[t] for t in col_spend_tier], # Col 1 gets tier colors
+    [ROW_EVEN_BG if i % 2 == 0 else ROW_ODD_BG for i in range(len(rows))], # Col 2
+    [ROW_EVEN_BG if i % 2 == 0 else ROW_ODD_BG for i in range(len(rows))]  # Col 3
+]
+# Adjust font color for Col 1 (light text on dark-ish tiers, dark on light tiers)
+fig.data[0].cells.font.color = [
+    ["#FFFFFF" if t != "Micro (<$10K)" else TEXT_COLOR for t in col_spend_tier],
+    TEXT_COLOR,
+    TEXT_COLOR
+]
+
+fig.update_layout(
+    title=dict(
+        text="Average Testing Efficiency by Spend Tier",
+        font=dict(size=22, color=TEXT_COLOR, family="Inter, system-ui, sans-serif"),
+        x=0.5,
+    ),
+    paper_bgcolor=BG_COLOR,
+    margin=dict(l=20, r=20, t=80, b=20),
+    height=400
+)
+
+# ── Output HTML ────────────────────────────────────────────────────────────────
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
+<title>Testing Efficiency Table — Marxx</title>
+<script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    background: {BG_COLOR};
+    color: {TEXT_COLOR};
+    font-family: 'Inter', sans-serif;
+    padding: 1.5rem;
+  }}
+  .chart-container {{
+    max-width: 1200px;
+    margin: 0 auto;
+    background: {BG_COLOR};
+    border-radius: 16px;
+    padding: 0.5rem;
+  }}
+</style>
+</head>
+<body>
+<div class="chart-container">
+{fig.to_html(full_html=False, include_plotlyjs=False)}
+</div>
+</body>
+</html>"""
+
+output_path = "/Users/nishant/Documents/scripts/report_2026/chart3_dashboard.html"
+with open(output_path, "w") as f:
+    f.write(html_content)
+
+print(f"✅ Dashboard saved to: {output_path}")
