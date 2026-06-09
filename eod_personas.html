@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EOD Adventure Park — Persona Intelligence Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0f0e0a;
+    --paper: #f7f4ef;
+    --accent: #e05c1a;
+    --accent-dim: #f0d4c4;
+    --green: #2d6a4f;
+    --green-dim: #c8e6d8;
+    --red: #c0392b;
+    --red-dim: #f5d0cd;
+    --muted: #6b6660;
+    --rule: #d4cfc8;
+    --card-bg: #ffffff;
+    --tag-bg: #eeeae4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* HEADER */
+  .report-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.12;
+  }
+  .report-header .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .report-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 680px;
+    margin-bottom: 18px;
+  }
+  .report-header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .report-header p {
+    color: #b0aca6;
+    max-width: 560px;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .meta-item .val {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .meta-item .lbl {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* NAV / LEGEND */
+  .legend-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 48px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-bar span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--tag-bg);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .pill:hover { background: var(--accent-dim); }
+  .pill .num { color: var(--accent); font-weight: 700; }
+
+  /* MAIN GRID */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* PERSONA CARD */
+  .persona-section {
+    padding: 64px 48px;
+    border-bottom: 1px solid var(--rule);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .persona-section:last-child { border-bottom: none; }
+
+  .persona-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+  .persona-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--accent-dim);
+    line-height: 1;
+    min-width: 64px;
+  }
+  .persona-title-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .persona-title-block .desc {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .persona-stats {
+    text-align: right;
+    min-width: 100px;
+  }
+  .persona-stats .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+  }
+  .persona-stats .pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    display: block;
+  }
+  .persona-stats .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SHARE BAR */
+  .share-bar-wrap { margin-bottom: 36px; }
+  .share-bar-track {
+    height: 6px;
+    background: var(--tag-bg);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .share-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  /* CONTENT COLUMNS */
+  .persona-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 820px) {
+    .persona-body { grid-template-columns: 1fr; }
+    .persona-header { grid-template-columns: auto 1fr; }
+    .persona-stats { grid-column: 2; }
+  }
+
+  .panel {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .panel h3 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* MICRO MOMENTS */
+  .moment {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .moment:last-child { border-bottom: none; }
+  .moment .context {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+  .moment .context strong { color: var(--accent); }
+  .moment .quote {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    background: var(--tag-bg);
+    border-left: 3px solid var(--accent);
+    padding: 8px 10px;
+    border-radius: 0 6px 6px 0;
+    line-height: 1.5;
+  }
+  .moment .quote a {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 10px;
+    color: var(--accent);
+    font-style: normal;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+  .moment .quote a:hover { text-decoration: underline; }
+
+  /* AD ANGLES */
+  .ad-grid { display: flex; flex-direction: column; gap: 12px; }
+
+  .trigger-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .trigger-tag {
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+  .trigger-tag.green {
+    background: var(--green-dim);
+    color: var(--green);
+  }
+  .trigger-tag.red {
+    background: var(--red-dim);
+    color: var(--red);
+  }
+
+  .hook-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    position: relative;
+  }
+  .hook-card::before {
+    content: '"';
+    position: absolute;
+    top: 6px; left: 10px;
+    font-size: 32px;
+    opacity: 0.15;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+  .hook-card .hook-text { padding-left: 4px; }
+
+  .kw-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .kw {
+    background: var(--tag-bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+  }
+
+  /* FULL-WIDTH PANELS */
+  .panel.full { grid-column: 1 / -1; }
+
+  /* SUMMARY TABLE */
+  .summary-section {
+    padding: 48px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--rule);
+  }
+  .summary-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  tbody tr { border-bottom: 1px solid var(--rule); }
+  tbody tr:hover { background: var(--tag-bg); }
+  tbody td { padding: 10px 16px; }
+  tbody td:nth-child(4) { font-family: 'JetBrains Mono', monospace; }
+  .rank-num { font-weight: 700; color: var(--accent); }
+  .bar-cell { min-width: 120px; }
+  .inline-bar {
+    height: 8px;
+    background: var(--tag-bg);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .inline-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #666;
+    padding: 32px 48px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="eyebrow">Consumer Insights · Persona Intelligence Report</div>
+  <h1>E-O-D Adventure Park<br><em>Who's Coming & Why</em></h1>
+  <p>Extracted from 400+ reviews across TripAdvisor & Google Maps. Each persona is grounded in actual reviewer language and mapped to actionable ad strategy.</p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="val">400+</span>
+      <span class="lbl">Reviews Analyzed</span>
+    </div>
+    <div class="meta-item">
+      <span class="val">10</span>
+      <span class="lbl">Personas Identified</span>
+    </div>
+    <div class="meta-item">
+      <span class="val">70+</span>
+      <span class="lbl">Micro-Moments</span>
+    </div>
+    <div class="meta-item">
+      <span class="val">2</span>
+      <span class="lbl">Data Sources</span>
+    </div>
+  </div>
+</header>
+
+<!-- LEGEND NAV -->
+<nav class="legend-bar">
+  <span>Jump to:</span>
+  <a class="pill" href="#p1">Archery Enthusiast <span class="num">~145</span></a>
+  <a class="pill" href="#p2">Family Fun Seeker <span class="num">~55</span></a>
+  <a class="pill" href="#p3">Thrill Seeker <span class="num">~48</span></a>
+  <a class="pill" href="#p4">Weekend Group Planner <span class="num">~42</span></a>
+  <a class="pill" href="#p5">Trampoline &amp; Indoor Fan <span class="num">~30</span></a>
+  <a class="pill" href="#p6">Disgruntled Value Hunter <span class="num">~28</span></a>
+  <a class="pill" href="#p7">Corporate Outing Organizer <span class="num">~22</span></a>
+  <a class="pill" href="#p8">Nature &amp; Lake Relaxer <span class="num">~18</span></a>
+  <a class="pill" href="#p9">Birthday Celebrant <span class="num">~14</span></a>
+  <a class="pill" href="#p10">Repeat Loyal Visitor <span class="num">~12</span></a>
+</nav>
+
+<!-- SUMMARY TABLE -->
+<div class="summary-section">
+  <div class="container" style="padding:0;">
+    <p class="section-title">Persona Ranking Overview</p>
+    <h2>Top 10 Personas by Review Volume</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Persona Name</th>
+          <th>Core Need State</th>
+          <th>Reviews</th>
+          <th>% Share</th>
+          <th class="bar-cell">Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank-num">1</td>
+          <td><strong>The Archery Convert</strong></td>
+          <td>First-time skill discovery &amp; coach connection</td>
+          <td>~145</td>
+          <td>36.2%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:100%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">2</td>
+          <td><strong>The Family Fun Coordinator</strong></td>
+          <td>Safe, multi-age outing with kids</td>
+          <td>~55</td>
+          <td>13.8%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:38%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">3</td>
+          <td><strong>The Adrenaline Chaser</strong></td>
+          <td>Zip line, tree top, high-intensity thrills</td>
+          <td>~48</td>
+          <td>12.0%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:33%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">4</td>
+          <td><strong>The Weekend Squad Planner</strong></td>
+          <td>Group hangout, city escape with friends</td>
+          <td>~42</td>
+          <td>10.5%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:29%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">5</td>
+          <td><strong>The Trampoline &amp; Indoor Play Fan</strong></td>
+          <td>Fun, low-barrier activity for all fitness levels</td>
+          <td>~30</td>
+          <td>7.5%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:21%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">6</td>
+          <td><strong>The Disgruntled Value Hunter</strong></td>
+          <td>High expectations vs. poor maintenance/value</td>
+          <td>~28</td>
+          <td>7.0%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:19%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">7</td>
+          <td><strong>The Corporate Outing Organizer</strong></td>
+          <td>Team bonding, group packages, event planning</td>
+          <td>~22</td>
+          <td>5.5%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:15%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">8</td>
+          <td><strong>The Nature &amp; Lake Relaxer</strong></td>
+          <td>Scenic escape, boating, peaceful city break</td>
+          <td>~18</td>
+          <td>4.5%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:12%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">9</td>
+          <td><strong>The Birthday Party Host</strong></td>
+          <td>Memorable celebration, activity + food combo</td>
+          <td>~14</td>
+          <td>3.5%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:10%"></div></div></td>
+        </tr>
+        <tr>
+          <td class="rank-num">10</td>
+          <td><strong>The Loyal Repeat Visitor</strong></td>
+          <td>Returning for favorites, brand trust, habit</td>
+          <td>~12</td>
+          <td>3.0%</td>
+          <td class="bar-cell"><div class="inline-bar"><div class="inline-bar-fill" style="width:8%"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ======================== PERSONA 1 ======================== -->
+<section class="persona-section" id="p1">
+  <div class="section-title">Persona 01 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">01</div>
+    <div class="persona-title-block">
+      <h2>The Archery Convert</h2>
+      <p class="desc">A first-time or early-stage archer who discovers unexpected joy and skill in the activity — largely because of the coach (Devendra Singh). Their identity shifts from "just visiting" to "I actually learned something." They leave wanting to return and telling others to try it.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~145</span>
+      <span class="pct">36.2%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:100%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <!-- MICRO MOMENTS -->
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When trying archery for the first time,</strong> I want to feel guided and confident, so I can actually hit the target and feel capable.</div>
+        <div class="quote">"Archery devendra singh, it's a very memorable feeling to be honest, you should try it atleast once"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25SdmRXTXRTMUF0Wm1KdFRsVjNPVEZoYUdoTWVXYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When discovering a new skill unexpectedly,</strong> I want to unlock a new interest, so I feel the visit was more than just entertainment.</div>
+        <div class="quote">"Archery devendra Singh this was a great experience we actually learned archery here for the first time and it was like a unlocking new interest"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT214V09XVmFkbGczTmxkd1IwcHVXV1Y0Vm1wR1JGRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When an instructor is kind and supportive,</strong> I want to leave a personal note of thanks, so I can honour the experience.</div>
+        <div class="quote">"Archery devendra singh He is very nice one of the most humble and sweet ♥️ person"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21WTU1qRmlaMFp4Ym5kcmJFdzVaVmxDZVcxRFFtYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When deciding if a specific activity is worth paying for,</strong> I want confirmation from others, so I don't waste money on poor quality.</div>
+        <div class="quote">"Archery devendra singh it was good and worth it. Enjoyed alot"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25ScmRGOTJNVTVwUVdOS1JWOUxTSHBEYkhSUFZVRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When a coach goes above and beyond,</strong> I want to acknowledge it publicly, so the park recognises good staff.</div>
+        <div class="quote">"Archery - Devendra Singh. Such a nice person he is. Gave us so many extra shots out of his goodness"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25wNE1HOXNOMDl0ZUc5eE9FOU9ORkZKY0ZFMllYYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When coming from outside Delhi,</strong> I want the trip to be worth the travel, so I can justify the time and cost.</div>
+        <div class="quote">"Archery devendra singh.. best feeling .came from mathura enjoyed a lott. Guide are very helpful"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT205NmJFZzRabG8xZEhaYWRrNUtVWHBJYzBGR2EwRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD ANGLES -->
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Skill Discovery</span>
+            <span class="trigger-tag">Coach Admiration</span>
+            <span class="trigger-tag green">Personal Growth</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">First time with a bow? He'll make sure you hit the target. Meet Devendra Singh.</span></div>
+        <div class="hook-card"><span class="hook-text">"It was like unlocking a new interest." — Every first-timer at EOD Archery.</span></div>
+        <div class="hook-card"><span class="hook-text">₹500. A skill for life. And someone who actually cares if you hit the bullseye.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"first time"</span>
+            <span class="kw">"best feeling"</span>
+            <span class="kw">"very supportive"</span>
+            <span class="kw">"unlocking new interest"</span>
+            <span class="kw">"he guided us very well"</span>
+            <span class="kw">"extra shots"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 2 ======================== -->
+<section class="persona-section" id="p2">
+  <div class="section-title">Persona 02 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">02</div>
+    <div class="persona-title-block">
+      <h2>The Family Fun Coordinator</h2>
+      <p class="desc">A parent (or grandparent) planning a full-day outing that works for multiple age groups — from toddlers to adults. They research in advance, look for safety, value for money, and a kids' zone. Their success metric is "everyone had a good time."</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~55</span>
+      <span class="pct">13.8%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:38%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When planning a day out with kids of different ages,</strong> I want activities for everyone, so no one feels left out.</div>
+        <div class="quote">"We went to eod with four kids of different age group... Once inside... They charge extra for almost everything."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When a staff member is especially kind to my child,</strong> I want to publicly thank them, so others know this is a child-friendly place.</div>
+        <div class="quote">"Its a excellent experience is here.. Kids get fun.. Mr. Ashok is amazing guy.. He treat my kid very well, Thanks"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25nMVkzTm1aa1ZTYURkcWVVOUNUbkpQYlV4bmNWRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When looking for a nearby weekend outing,</strong> I want something close to home, so I don't have to travel far with kids.</div>
+        <div class="quote">"Outdoor is always on my list for a weekend outing in the city with the kids and this place was just stone throw from our place."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When my child tries archery for the first time,</strong> I want a patient instructor, so they feel safe and confident.</div>
+        <div class="quote">"My kid tried archery for the first time and he really enjoyed the game. Especially thanks to Naveen who guided the basics for better archery."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tSSVpISm9ZeTFFTUROck9IcE9ZVWRQV2xsdFUyYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When kids are turned away from rides despite paying full price,</strong> I want clarity upfront, so I don't feel cheated.</div>
+        <div class="quote">"They are charging such amount then they should give them liberty to enjoy the same place. It's a pathetic place for their families."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2toSVpWYzNieTF2TWkxb1RGVTJSVlJsYWpGQmMyYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Parental Pride</span>
+            <span class="trigger-tag green">Safety & Trust</span>
+            <span class="trigger-tag">Family Bonding</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">From toddlers to teens — one park that keeps everyone busy all day. EOD Adventure Park.</span></div>
+        <div class="hook-card"><span class="hook-text">Archery for the kids. Boating for you. The jungle house for the little ones. Everyone wins.</span></div>
+        <div class="hook-card"><span class="hook-text">Just a stone's throw away in Mayur Vihar. Delhi's best-kept family secret.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"family outing"</span>
+            <span class="kw">"kids enjoyed"</span>
+            <span class="kw">"safe for kids"</span>
+            <span class="kw">"all age group"</span>
+            <span class="kw">"well managed"</span>
+            <span class="kw">"jungle house"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 3 ======================== -->
+<section class="persona-section" id="p3">
+  <div class="section-title">Persona 03 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">03</div>
+    <div class="persona-title-block">
+      <h2>The Adrenaline Chaser</h2>
+      <p class="desc">Driven by physical thrills — zip line, tree top course, body zorbing, and rain dance. They chase the "adrenaline rush + fear" combination and share it emotionally. Their reviews are packed with words like "wonderful," "amazing," and exclamation marks. They compare rides and rank them.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~48</span>
+      <span class="pct">12.0%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:33%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When riding the zip line for the first time,</strong> I want that sudden push of adrenaline, so I feel truly alive and daring.</div>
+        <div class="quote">"The sudden push gives you a mix of adrenaline and fear at the same time — absolutely awesome!"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWcVVuazNOMDFsY0UxSFRtcEpla2hwYVhObU1GRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I discover the tree top course,</strong> I want to describe the feeling to friends, so they come too.</div>
+        <div class="quote">"Tree top adventure & boating was a excellent break from busy city life."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When deciding which activity to prioritise,</strong> I want insider rankings, so I don't miss the best ones.</div>
+        <div class="quote">"Sbse zyada tree top aur zip line me maza aaya, bowling, table tennis, trampling, laser gun. Fully masti, fully enjoyed."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When an activity feels unsafe,</strong> I want to warn others so they don't get hurt like I did.</div>
+        <div class="quote">"Body Zorbing is something I personally would not recommend because it felt unsafe. There's a real chance of hitting your head on the ground."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWcVVuazNOMDFsY0UxSFRtcEpla2hwYVhObU1GRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When zip cycling above the ground,</strong> I want a guide who manages the experience well, so the ride feels exciting but controlled.</div>
+        <div class="quote">"Zip cycling was amazing. Sujal guides us very well."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pjNGQxVm5Wakk0TjFsamNIYzVTRUpzWmtKSk0yYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Adrenaline</span>
+            <span class="trigger-tag">Bragging Rights</span>
+            <span class="trigger-tag green">Controlled Fear</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">That moment when the zip line gives you the push — adrenaline + fear at the same time. Book now.</span></div>
+        <div class="hook-card"><span class="hook-text">Tree top. Zip line. Rain dance. EOD's got the rides that make your stories worth telling.</span></div>
+        <div class="hook-card"><span class="hook-text">Not your average Delhi outing. Bring people who can handle it.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"adrenaline"</span>
+            <span class="kw">"zip line wonderful"</span>
+            <span class="kw">"fully masti"</span>
+            <span class="kw">"tree top must do"</span>
+            <span class="kw">"sudden push"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 4 ======================== -->
+<section class="persona-section" id="p4">
+  <div class="section-title">Persona 04 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">04</div>
+    <div class="persona-title-block">
+      <h2>The Weekend Squad Planner</h2>
+      <p class="desc">Friend-group trip organiser, typically 20s–30s, looking for an affordable, activity-rich day out in Delhi. They care about variety, fun group dynamics, and city escape. They mention "friends" repeatedly and evaluate the whole day as a package experience.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~42</span>
+      <span class="pct">10.5%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:29%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When planning a budget day out with friends in Delhi,</strong> I want max activities for min spend, so everyone leaves happy.</div>
+        <div class="quote">"Archery devendra singh bahut maza aaya....500 vasool h yaha pr literally. Family friends and all friendly park haii"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pGNmVXdDBNMlEyU1RsT2NuWkdTbkJmVTJNdFlYYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I want to escape the city without going far,</strong> I want a green, lake-side setting, so I feel refreshed by the outing.</div>
+        <div class="quote">"If you are planning a team or family outing this is a nice place with greenery and lake view."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When the laser tag is broken,</strong> I want to know before buying tickets, so I don't feel ripped off.</div>
+        <div class="quote">"Laser Tag was honestly the worst experience there. Only two guns were working, there were no vests provided, and we weren't informed about these issues at the ticket counter."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWcVVuazNOMDFsY0UxSFRtcEpla2hwYVhObU1GRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I arrive with friends and face long queues,</strong> I want tips for the best time to visit, so I don't waste half the day waiting.</div>
+        <div class="quote">"Try to go early in order to avoid the rush hours and to avoid the long queue at the counter."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When trampoline staff makes us laugh,</strong> I want to capture the memory and credit them, so the brand knows good staff creates loyal fans.</div>
+        <div class="quote">"Archery devendra Singh, second experience, nice experience, nice staff. Trampoline is fab, no cap, would love to see your friends fall."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25FM1Z6QkdMV1kyYTFOUU5IWk5NREpVY2kxM1RrRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Belonging</span>
+            <span class="trigger-tag green">Value for Money</span>
+            <span class="trigger-tag">City Escape</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">₹500 vasool. Literally. Your squad's next Delhi outing sorted.</span></div>
+        <div class="hook-card"><span class="hook-text">Trampoline, archery, zip line, bowling — all in one afternoon with your people.</span></div>
+        <div class="hook-card"><span class="hook-text">Green. Lake-side. 10 min from Mayur Vihar metro. Pack your crew.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"came with friends"</span>
+            <span class="kw">"500 vasool"</span>
+            <span class="kw">"must go with a group"</span>
+            <span class="kw">"good time with friends"</span>
+            <span class="kw">"city escape"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 5 ======================== -->
+<section class="persona-section" id="p5">
+  <div class="section-title">Persona 05 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">05</div>
+    <div class="persona-title-block">
+      <h2>The Trampoline & Indoor Play Fan</h2>
+      <p class="desc">Drawn to accessible, non-intimidating activities that are pure fun — particularly the trampoline park, bowling, and table tennis. Often teens or young adults; sometimes parents with small children. Staff warmth at these specific stations is a strong driver of satisfaction.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~30</span>
+      <span class="pct">7.5%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:21%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When the trampoline staff makes the experience joyful,</strong> I want to name them personally, so they get recognition.</div>
+        <div class="quote">"Trampoline park was awesome and joyful we love it sheetal, rinky, paramod"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25kZmQycHhiM0ZMTTBKRmRYVTFiM2xJY2xwNmNFRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When bowling staff is rude,</strong> I want to flag it so management addresses it, preventing it from ruining other visits.</div>
+        <div class="quote">"Bowling was great, but unfortunately the staff behavior there wasn't very professional and felt rude at times."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWcVVuazNOMDFsY0UxSFRtcEpla2hwYVhObU1GRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When the trampoline is the best activity of the day,</strong> I want others to know it, so they don't skip it for more "exciting" options.</div>
+        <div class="quote">"The Trampoline area was probably the most fun and enjoyable activity of all — we had an amazing time there."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWcVVuazNOMDFsY0UxSFRtcEpla2hwYVhObU1GRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I lose my phone on the trampoline,</strong> I want helpful staff who return it, so I trust the place with repeat visits.</div>
+        <div class="quote">"Pramod sir thanks mera phone trampoline me reh gya tha magar pramod sir help ki thanks 🙏"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2twclFUTkxkVEZFU0dGaVFqSkxTelY2ZUdOMWRYYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Pure Joy</span>
+            <span class="trigger-tag green">Staff Connection</span>
+            <span class="trigger-tag">Playfulness</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">Don't skip the trampoline park. Seriously — it's the highlight everyone forgets to mention.</span></div>
+        <div class="hook-card"><span class="hook-text">EOD's indoor zone: bowling, TT, trampolines and staff who actually want you to have fun.</span></div>
+        <div class="hook-card"><span class="hook-text">No equipment needed. No skill required. Just show up and jump.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"trampoline is fab"</span>
+            <span class="kw">"awesome and joyful"</span>
+            <span class="kw">"all staff helpful"</span>
+            <span class="kw">"best experience"</span>
+            <span class="kw">"pramod sir"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 6 ======================== -->
+<section class="persona-section" id="p6">
+  <div class="section-title">Persona 06 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">06</div>
+    <div class="persona-title-block">
+      <h2>The Disgruntled Value Hunter</h2>
+      <p class="desc">Came with high expectations based on online content or friend referrals, but left feeling cheated. Frustrated by broken equipment, short activity durations, hidden charges, dirty facilities, or rude staff. Their reviews are detailed, analytical, and deeply emotional. They serve as a warning signal for the brand.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~28</span>
+      <span class="pct">7.0%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:19%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When activities are listed online but unavailable on arrival,</strong> I want transparency, so I can plan alternatives before spending money.</div>
+        <div class="quote">"Washroom are not clean at all, no flush or taps working and really poor management for a park like this... workers are also rude"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25WcVYxTm5NbmN4VUVKTWF3cGhkbWgyT1RRM1JtYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When bowling is cut to just 5 balls,</strong> I want to know the actual terms before purchasing, so I can decide if it's worth it.</div>
+        <div class="quote">"Very bad experience everything was in service, balling just 5 balls, gun game just 3 guns and 1 minutes...not worth going this time"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tWTFowUm5SVFZvYkdSRlZHSnBPVWxtVGtwTFpIYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When food quality is poor and I get sick,</strong> I want the management held accountable, so other families are warned.</div>
+        <div class="quote">"Very unhygienic place. I have got food poisoning after having their food. Staff is so rude. Total waste of money and time"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2kxRGVFRlNZMlI1ZDJSSFJFbGlZMU0zYXkxblExRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When social media content is misleading,</strong> I want to warn others about the gap between promoted image and reality.</div>
+        <div class="quote">"Don't be fooled by their paid promotions video. So many better options are there"
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pKMVJYazFNRXBQZEdsRVoyeFZXamhDUWt0cGQwRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers (Pain Points to Address)</p>
+          <div class="trigger-row">
+            <span class="trigger-tag red">Betrayal of Trust</span>
+            <span class="trigger-tag red">Wasted Money</span>
+            <span class="trigger-tag red">Broken Promises</span>
+          </div>
+        </div>
+        <div class="hook-card" style="background:#c0392b;"><span class="hook-text">⚠ Brand Opportunity: Address this persona head-on. "We heard you. Here's what's changed." Ads targeting re-engagement.</span></div>
+        <div class="hook-card"><span class="hook-text">We've upgraded. New equipment. Cleaner facilities. Trained staff. Come back and see.</span></div>
+        <div class="hook-card"><span class="hook-text">Book weekdays for shorter queues. Explorer combo = 8 activities. Full terms at counter.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords (Pain Language)</p>
+          <div class="kw-list">
+            <span class="kw">"paise waste"</span>
+            <span class="kw">"not worth going"</span>
+            <span class="kw">"poor management"</span>
+            <span class="kw">"paid promotions"</span>
+            <span class="kw">"food poisoning"</span>
+            <span class="kw">"rude staff"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 7 ======================== -->
+<section class="persona-section" id="p7">
+  <div class="section-title">Persona 07 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">07</div>
+    <div class="persona-title-block">
+      <h2>The Corporate Outing Organizer</h2>
+      <p class="desc">HR or team lead planning a group activity for 15–60 people. They negotiate packages, care about logistics and professionalism, and write detailed post-event reviews. When things go wrong, they are vocal and detailed. When it works, they become repeat clients.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~22</span>
+      <span class="pct">5.5%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:15%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When organising for 50 colleagues,</strong> I want full-day engagement with multiple activity stations, so everyone feels included.</div>
+        <div class="quote">"We had a company team outing at eod adventure park and i must say we had a great time. We were there the whole day and had lots of activities."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When promised activities are not delivered,</strong> I want accountability from the organiser, so I don't look bad in front of my team.</div>
+        <div class="quote">"Balling system was not working and a team of 50 people wasted their 2-3 hours waiting... The organizer was completely shameless despite he was aware he lied us."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When the venue hosts a RWA picnic for 56 people,</strong> I want dedicated space and attentive staff, so the group feels valued.</div>
+        <div class="quote">"We were allotted a park which had only one gate so that the designated staff could keep an eye on our stuff... All the staff members were very courteous & helpful."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When comparing Delhi NCR options for team outings,</strong> I want a reliable recommendation, so I minimise planning risk.</div>
+        <div class="quote">"All an all this was a very badly managed place... So i would suggest to avoid this place and any place in NCR will be better than this."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Professional Credibility</span>
+            <span class="trigger-tag green">Team Bonding</span>
+            <span class="trigger-tag">Control & Reliability</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">Team of 10 to 100. EOD handles the activities — you take the credit for a great day out.</span></div>
+        <div class="hook-card"><span class="hook-text">Corporate packages. Dedicated zone. Archery, bowling, volleyball and more. One invoice.</span></div>
+        <div class="hook-card"><span class="hook-text">Delhi's go-to for team outings since 2015. 10 acres. Lake-side setting. Customisable packages.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"team outing"</span>
+            <span class="kw">"office team"</span>
+            <span class="kw">"50 people"</span>
+            <span class="kw">"full day picnic"</span>
+            <span class="kw">"complete package"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 8 ======================== -->
+<section class="persona-section" id="p8">
+  <div class="section-title">Persona 08 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">08</div>
+    <div class="persona-title-block">
+      <h2>The Nature & Lake Relaxer</h2>
+      <p class="desc">Seeks serenity over stimulation. Drawn to the Sanjay Lake setting, paddle boating, greenery, and the cafe. They value atmosphere and escape from Delhi's urban chaos. Their ideal visit is slow, scenic, and calm — they are less activity-driven and more mood-driven.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~18</span>
+      <span class="pct">4.5%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:12%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When I want to unwind near water in Delhi,</strong> I want peaceful boating, so I can decompress from city stress.</div>
+        <div class="quote">"Paddle boating on the lake provides a serene escape."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When looking for a couple's day outing,</strong> I want a mix of relaxation and light activity, so the day feels balanced.</div>
+        <div class="quote">"Nice place for a day outing with your partner. Lots of activities to do for fun, Bowling, Boating. You can relax watching lake."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When the park setting is genuinely beautiful,</strong> I want to recommend it to others, so they discover this hidden green space.</div>
+        <div class="quote">"A perfect place to spend a family day out with expertly fabricated adventure sports. The serene experience of the garden and boating in the lake adds a charm of different level."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Serenity</span>
+            <span class="trigger-tag green">Urban Escape</span>
+            <span class="trigger-tag">Romantic Setting</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">A lake. Greenery. Boating. Right inside Delhi. EOD — where the city quiets down.</span></div>
+        <div class="hook-card"><span class="hook-text">Perfect for a couple's outing. Boat on Sanjay Lake, snack at the open cafe, breathe again.</span></div>
+        <div class="hook-card"><span class="hook-text">"Serene escape from city life" — not our words. Theirs. (And we agree.)</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"serene escape"</span>
+            <span class="kw">"lake view"</span>
+            <span class="kw">"relax watching lake"</span>
+            <span class="kw">"greenery"</span>
+            <span class="kw">"break from busy city"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 9 ======================== -->
+<section class="persona-section" id="p9">
+  <div class="section-title">Persona 09 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">09</div>
+    <div class="persona-title-block">
+      <h2>The Birthday Party Host</h2>
+      <p class="desc">Planning a birthday celebration that combines activity, food, and an event atmosphere. They care deeply about staff warmth (especially to kids/guests), unlimited access to activities, and seamless execution. Bad experiences hit harder — they've invested emotionally and socially.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~14</span>
+      <span class="pct">3.5%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:10%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When planning a child's birthday at EOD,</strong> I want seamless staff support, so my guests aren't disappointed on a special day.</div>
+        <div class="quote">"We had an excellent birthday party here with activities and food! There are lots of activities for children including jungle house, bowling, archery and the tree course."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When staff is rude to kids on a birthday,</strong> I feel publicly humiliated and want to warn every parent considering the venue.</div>
+        <div class="quote">"We were so embarrassed in front of our guests. After complaining so many times there was no response."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I want to book a birthday package,</strong> I want clear package details, so I know exactly what's included vs. charged extra.</div>
+        <div class="quote">"You can even buy their package for birthday or any occasion celebration."
+          <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d9747194-Reviews-E_O_D_Adventure_Park-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Memorable Moments</span>
+            <span class="trigger-tag green">Host Pride</span>
+            <span class="trigger-tag">Seamless Planning</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">Birthday packages at EOD — jungle house, archery, food and a cake. Make it a day they remember.</span></div>
+        <div class="hook-card"><span class="hook-text">You bring the birthday spirit. We'll handle the activities, the food, and the smiles.</span></div>
+        <div class="hook-card"><span class="hook-text">From archery to bowling to rain dance — one venue. One booking. Zero stress.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"birthday party"</span>
+            <span class="kw">"occasion celebration"</span>
+            <span class="kw">"excellent birthday"</span>
+            <span class="kw">"kids enjoyed"</span>
+            <span class="kw">"activities and food"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PERSONA 10 ======================== -->
+<section class="persona-section" id="p10">
+  <div class="section-title">Persona 10 / 10</div>
+  <div class="persona-header">
+    <div class="persona-rank">10</div>
+    <div class="persona-title-block">
+      <h2>The Loyal Repeat Visitor</h2>
+      <p class="desc">Returns 2–5+ times and uses language like "second time," "5th visit," or "came back." Their loyalty is tied to a specific staff member or activity. They notice improvements (and regressions) and serve as brand advocates. Their endorsement carries high trust weight for prospective visitors.</p>
+    </div>
+    <div class="persona-stats">
+      <span class="count">~12</span>
+      <span class="pct">3.0%</span>
+      <span class="lbl">of all reviews</span>
+    </div>
+  </div>
+  <div class="share-bar-wrap">
+    <div class="share-bar-track"><div class="share-bar-fill" style="width:8%"></div></div>
+  </div>
+
+  <div class="persona-body">
+    <div class="panel">
+      <h3>🎯 Micro-Moments (High Intent)</h3>
+      <div class="moment">
+        <div class="context"><strong>When I return for the 5th time,</strong> I want to be treated like a valued regular, so I feel the relationship is mutual.</div>
+        <div class="quote">"Archery devendra singh nice feeling, staff has very polite nature and they are very supportive. Its my 5th visit and they always treat you like its ur first time."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25ORGFGUmRTM2RvU2t4NlZ6bDVXSEpJYTBkSGNuYxAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I return after a long break,</strong> I want the experience to still feel welcoming, so I know my choice to come back was right.</div>
+        <div class="quote">"I have came back after very long time ☺️☺️ — wonderful experience in eod park, archery with Devendra Singh."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURCczRyamhnRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+      <div class="moment">
+        <div class="context"><strong>When I come with my family for the second time,</strong> I want to show them my favourite parts, so I relive the best moments and they discover new ones.</div>
+        <div class="quote">"Archery devendra singh... It's our 2nd time and we felt real good... And highly recommended."
+          <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21kcmFuVlpUV2RUYVVKRmJUWjNjblIzUWpoSmRsRRAB" target="_blank">↗ View Review</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📣 Ad Angles & Emotional Triggers</h3>
+      <div class="ad-grid">
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Emotional Triggers</p>
+          <div class="trigger-row">
+            <span class="trigger-tag">Identity & Belonging</span>
+            <span class="trigger-tag green">Brand Trust</span>
+            <span class="trigger-tag">Nostalgia</span>
+          </div>
+        </div>
+        <div class="hook-card"><span class="hook-text">"They always treat you like it's your first time." — 5-time visitor. That's the standard we hold.</span></div>
+        <div class="hook-card"><span class="hook-text">EOD members get early access, combo upgrades, and staff who remember you. Come back.</span></div>
+        <div class="hook-card"><span class="hook-text">Been before? Bring someone who hasn't. Watch their face on the zip line.</span></div>
+        <div>
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px;">Verbatim Keywords</p>
+          <div class="kw-list">
+            <span class="kw">"second time"</span>
+            <span class="kw">"5th visit"</span>
+            <span class="kw">"came back"</span>
+            <span class="kw">"highly recommended"</span>
+            <span class="kw">"first time treatment"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>EOD Adventure Park — Persona Intelligence Report</span>
+  <div>Generated from <span>400+</span> reviews · TripAdvisor + Google Maps · <span>June 2026</span></div>
+  <div>10 Personas · 70+ Micro-Moments · 30 Ad Hooks</div>
+</footer>
+
+</body>
+</html>
