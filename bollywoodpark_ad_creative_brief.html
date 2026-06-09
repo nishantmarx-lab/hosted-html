@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ad Creative Research Brief — Bollywood Park Mumbai FilmCity</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --gold:   #D4A017;
+    --crimson:#C0392B;
+    --navy:   #0D1B2A;
+    --cream:  #FAF6EF;
+    --slate:  #2C3E50;
+    --muted:  #6B7280;
+    --border: #E5DDD0;
+    --tag-bg: #FFF8E7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 48px 40px;
+    border-bottom: 4px solid var(--gold);
+  }
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  header h1 span { color: var(--gold); }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    font-family: 'DM Mono', monospace;
+  }
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .meta-pill {
+    background: rgba(212,160,23,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+  /* ── PHASE HEADERS ── */
+  .phase {
+    margin-top: 60px;
+  }
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .phase-num {
+    background: var(--crimson);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 8px;
+    flex: 1;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .card-value.large {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--crimson);
+  }
+
+  /* ── TAGS ── */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid #E8D9A0;
+    color: #7A5C00;
+    padding: 3px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* ── WIDE CARD ── */
+  .wide-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .wide-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--slate);
+  }
+  .wide-card p, .wide-card li {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.7;
+  }
+  .wide-card ul { padding-left: 20px; }
+  .wide-card ul li { margin-bottom: 4px; }
+
+  /* ── TESTIMONIAL CARD ── */
+  .testimonial-card {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+  .testimonial-card blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    color: #e2d8c5;
+  }
+  .testimonial-card .t-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── STAT BLOCK ── */
+  .stat-block {
+    background: linear-gradient(135deg, var(--crimson) 0%, #8B1A12 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+  }
+  .stat-block .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-block .stat-label {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+  .stat-block .stat-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    margin-top: 10px;
+    opacity: 0.6;
+  }
+
+  /* ── COMPETITOR TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  th {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    text-align: left;
+  }
+  td { padding: 12px 18px; border-bottom: 1px solid var(--border); color: #374151; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+
+  /* ── VS BLOCK ── */
+  .vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+  }
+  .vs-them { color: var(--muted); font-size: 14px; }
+  .vs-us { color: var(--crimson); font-size: 14px; font-weight: 600; }
+  .vs-badge {
+    background: var(--gold);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  /* ── HOOK CARDS ── */
+  .hook-section { margin-bottom: 40px; }
+  .hook-type-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--tag-bg);
+    border: 1px solid #E8D9A0;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .hooks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .hook-card {
+    background: #fff;
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 18px;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  /* ── FOUNDER SECTION ── */
+  .founder-box {
+    background: linear-gradient(135deg, var(--navy) 60%, #1a2d45);
+    color: #fff;
+    border-radius: 12px;
+    padding: 40px;
+  }
+  .founder-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .founder-box .f-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: start;
+  }
+  .founder-box .f-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+  .founder-box .f-val { font-size: 14px; color: #d4cfc6; line-height: 1.65; }
+  .founder-quote {
+    border-left: 3px solid var(--gold);
+    padding-left: 18px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #e2d8c5;
+    margin: 24px 0;
+    line-height: 1.65;
+  }
+
+  /* ── PAIN POINTS ── */
+  .pain-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .pain-intensity {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .pain-intensity.severe { background: #FEE2E2; color: #991B1B; }
+  .pain-intensity.moderate { background: #FEF3C7; color: #92400E; }
+  .pain-intensity.mild { background: #D1FAE5; color: #065F46; }
+  .pain-text strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .pain-text span { font-size: 13px; color: var(--muted); }
+
+  /* ── BEFORE/AFTER ── */
+  .ba-card {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    align-items: center;
+    gap: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .ba-before { padding: 20px 24px; background: #FEF2F2; }
+  .ba-after  { padding: 20px 24px; background: #F0FDF4; }
+  .ba-arrow  { text-align: center; font-size: 20px; color: var(--gold); background: #fff; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .ba-label  { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .ba-before .ba-label { color: var(--crimson); }
+  .ba-after  .ba-label { color: #16A34A; }
+  .ba-text   { font-size: 14px; font-weight: 500; }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.45);
+    padding: 20px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 640px) {
+    header { padding: 36px 20px 28px; }
+    .wrapper { padding: 0 16px 60px; }
+    .vs-row { grid-template-columns: 1fr; text-align: center; }
+    .ba-card { grid-template-columns: 1fr; }
+    .ba-arrow { display: none; }
+    .founder-box .f-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-eyebrow">Performance Creative Research Brief</div>
+  <h1>Bollywood Park<br><span>Mumbai FilmCity</span></h1>
+  <div class="header-sub">bollywoodpark.in &nbsp;·&nbsp; Goregaon East, Mumbai &nbsp;·&nbsp; Prepared June 2026</div>
+  <div class="meta-pills">
+    <span class="meta-pill">Out-of-Home Experience</span>
+    <span class="meta-pill">Bollywood Theme Park</span>
+    <span class="meta-pill">Film City Tour</span>
+    <span class="meta-pill">India's #1 Reel-to-Real Park</span>
+    <span class="meta-pill">15 Ad Formats Covered</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════ PHASE 1 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">01</div>
+    <div class="phase-title">Brand Identity &amp; Visual System</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Brand Name</div>
+      <div class="card-value large">Bollywood Park Mumbai FilmCity</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Tagline (derived)</div>
+      <div class="card-value">"India's First Reel-to-Real Bollywood Theme Park"</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Mission Statement</div>
+      <div class="card-value">To bring the magic of India's beloved film industry to life for tourists, families, and Bollywood fans — inside the legendary Filmcity Mumbai.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Facebook Brand Line</div>
+      <div class="card-value">"Step off the streets and onto the sets. Experience the magic where every frame feels like a masterpiece."</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Design Agency</div>
+      <div class="card-value">Unknown / In-house</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Operator Entity</div>
+      <div class="card-value">MOS Utility Pvt. Ltd. (Multilink) — affiliated with MTDC &amp; Dadasaheb Phalke Chitranagari</div>
+    </div>
+  </div>
+
+  <div class="wide-card" style="margin-top:20px;">
+    <h3>Brand Voice Adjectives</h3>
+    <div class="tag-list">
+      <span class="tag">Celebratory</span>
+      <span class="tag">Cinematic</span>
+      <span class="tag">Nostalgic</span>
+      <span class="tag">Energetic</span>
+      <span class="tag">Inclusive</span>
+      <span class="tag">Patriotic</span>
+      <span class="tag">Glamorous</span>
+      <span class="tag">Accessible</span>
+    </div>
+  </div>
+
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-label">Tone Notes</div>
+      <div class="card-value">Enthusiastic and pride-filled — references "India's first", "magic", "cinematic wonder." Speaks in aspirational but accessible language targeting Hindi-speaking Indian families and curious tourists alike.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Banned / Off-Brand Language</div>
+      <div class="card-value">Avoid: "theme park ride", "amusement park", "Hollywood-style". Never directly promise meeting a celebrity (explicitly disclaimed). Avoid anything implying guaranteed live shooting access.</div>
+    </div>
+  </div>
+
+  <!-- VISUAL SYSTEM -->
+  <div class="wide-card" style="margin-top:20px;">
+    <h3>Visual System</h3>
+    <div class="card-grid" style="margin-top:12px;">
+      <div class="card">
+        <div class="card-label">Primary Font (best guess)</div>
+        <div class="card-value">Bold condensed sans (site uses generic web fonts — suggest Bebas Neue or Anton for headlines)</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Body Font</div>
+        <div class="card-value">Open Sans / DM Sans — clean, readable web font</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Primary Color</div>
+        <div class="card-value">
+          <span style="display:inline-block;width:16px;height:16px;background:#C0392B;border-radius:3px;vertical-align:middle;margin-right:6px;"></span>
+          Bollywood Red — approx <strong>#C0392B</strong>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Secondary Color</div>
+        <div class="card-value">
+          <span style="display:inline-block;width:16px;height:16px;background:#D4A017;border-radius:3px;vertical-align:middle;margin-right:6px;"></span>
+          Gold / Filmi Sona — approx <strong>#D4A017</strong>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Accent / Background</div>
+        <div class="card-value">
+          <span style="display:inline-block;width:16px;height:16px;background:#0D1B2A;border-radius:3px;vertical-align:middle;margin-right:6px;"></span>
+          Deep Navy / Dark Stage — <strong>#0D1B2A</strong>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Background Preference</div>
+        <div class="card-value">Dark + colorful — imagery heavy, high contrast. Cinematic feel. No plain white hero.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Imagery Style</div>
+        <div class="card-value">Lifestyle on-set photography, vibrant costumes, performers mid-action, iconic Bollywood set backdrops. High saturation.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">UI Shapes</div>
+        <div class="card-value">Mixed — rounded cards, but hero sections use full-bleed imagery. Film-frame aesthetic (clapper board motifs).</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Logo Description</div>
+        <div class="card-value">Text-based logo with clapperboard/film strip motif. Red + gold on dark background. URL: bollywoodpark.in/img/logo.png</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 2 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">02</div>
+    <div class="phase-title">Product / Experience Intelligence</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Hero Product</div>
+      <div class="card-value large">Mumbai FilmCity Tour with Bollywood Park</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Product Type</div>
+      <div class="card-value">Guided immersive experience / entertainment tour</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Starting Price</div>
+      <div class="card-value large">₹1,200/person</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Duration</div>
+      <div class="card-value">2–3 hours (guided). Available in Hindi, Marathi &amp; English.</div>
+    </div>
+  </div>
+
+  <div class="wide-card" style="margin-top:20px;">
+    <h3>Hero Claim</h3>
+    <p style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--crimson);">"India's first and only reel-to-real Bollywood theme park — walk through legendary film sets, record in a real singing studio, enjoy live dance shows, and act in your own short film."</p>
+  </div>
+
+  <div class="wide-card">
+    <h3>How It Works (Plain English)</h3>
+    <p>Visitors arrive at Gate No. 1, Dadasaheb Phalke Chitranagari inside Film City Goregaon. An AC bus tour + guided walk takes them through live-use studio sets, Chroma/green-screen zones, Foley sound studios, and multiple iconic set recreations (Raj Mahal, Goa Street, Fort &amp; Caves). Includes a live Bollywood dance &amp; comedy show, costume try-ons, voice recording in a real studio, selfie zones with Bollywood props, and the chance to witness actual TV serial shoots if in progress.</p>
+  </div>
+
+  <div class="wide-card">
+    <h3>Key Experience Features &amp; Their Benefits</h3>
+    <div class="card-grid" style="margin-top:8px;">
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Live Chroma Activity</strong> — step into a movie poster; see yourself "inside" a Bollywood film in real time</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Bollywood Dance Show</strong> — professional live performers; feel the energy of Bollywood's biggest numbers</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>7D Ride</strong> — multisensory cinematic thrill inside the park</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Foley Sound Studio</strong> — create the sounds of cinema; understand the magic behind the screen</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Bollywood Costume Try-Outs</strong> — dress as your favourite character; Insta-worthy photos guaranteed</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Iconic Set Recreations</strong> — Raj Mahal, Goa Street, Temple, Court, Fort &amp; Caves — each a photogenic backdrop</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Voice / Singing Studio</strong> — record your own Bollywood song in a professional studio booth</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Feature</div>
+        <div class="card-value"><strong>Live Shoot Viewing</strong> — potential to witness real TV serial or film shooting in progress (not guaranteed)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Current Offer</div>
+      <div class="card-value">Group discounts available; seasonal offers on bollywoodpark.in/offer.html. Book online for best rates.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Guarantee</div>
+      <div class="card-value">Experience guaranteed regardless of whether active shooting is underway — sets and shows run daily.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Transport Included</div>
+      <div class="card-value">AC Bus tour within Film City campus included. Multilingual tour guides on every bus.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Location</div>
+      <div class="card-value">Gate No 1, Dadasaheb Phalke Chitranagari, Film City Rd, Goregaon East, Mumbai 400065</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 3 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">03</div>
+    <div class="phase-title">Proof Points &amp; Social Proof</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="stat-block">
+      <div class="stat-num">17 Lakh+</div>
+      <div class="stat-label">Tourists Welcomed Since 2014</div>
+      <div class="stat-source">SOURCE: bollywoodpark.in/About-Us.html</div>
+    </div>
+    <div class="stat-block" style="background:linear-gradient(135deg,#1a5c3a 0%,#0d3322 100%);">
+      <div class="stat-num">14 Yrs</div>
+      <div class="stat-label">Glorious Years of Operation</div>
+      <div class="stat-source">SOURCE: LinkedIn Official Page, 2026</div>
+    </div>
+    <div class="stat-block" style="background:linear-gradient(135deg,#7C3AED 0%,#4C1D95 100%);">
+      <div class="stat-num">520 Acres</div>
+      <div class="stat-label">Film City Campus — Largest Movie Facility in India</div>
+      <div class="stat-source">SOURCE: Incredible India / bollywoodpark.in</div>
+    </div>
+    <div class="stat-block" style="background:linear-gradient(135deg,#D97706 0%,#92400E 100%);">
+      <div class="stat-num">#165</div>
+      <div class="stat-label">of 611 Things To Do in Mumbai — TripAdvisor</div>
+      <div class="stat-source">SOURCE: TripAdvisor 2025 Listing</div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+    <div class="testimonial-card">
+      <blockquote>"The tour guide was very knowledgeable and fun to be with. We got to see a lot of cool Bollywood sets! I suggest this tour — it's really worth having this experience."</blockquote>
+      <div class="t-name">Verified Visitor — bollywoodpark.in</div>
+    </div>
+    <div class="testimonial-card">
+      <blockquote>"Absolutely fantastic. Right from the moment we boarded the bus to the time we explored and returned, everything was perfect. The famous Dhinka Chika song from READY was shot right there — I couldn't believe it."</blockquote>
+      <div class="t-name">Thapki Pyaar Ki — TripAdvisor</div>
+    </div>
+    <div class="testimonial-card">
+      <blockquote>"We had the opportunity to see live filming of television shows — like the soap operas. Overall a very good experience. We got to see the backstages with actors, actresses and directors."</blockquote>
+      <div class="t-name">Verified Visitor — bollywoodpark.in Tour Page</div>
+    </div>
+    <div class="testimonial-card">
+      <blockquote>"Your views on films will totally change after this visit. I always wanted to come here. You must visit this place."</blockquote>
+      <div class="t-name">Nitish — bollywoodpark.in Testimonials</div>
+    </div>
+  </div>
+
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-label">TripAdvisor Rating</div>
+      <div class="card-value large">3.8 / 5</div>
+      <div class="card-label" style="margin-top:8px;">11 Reviews — #165 of 611 Mumbai Activities</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Government Affiliations</div>
+      <div class="tag-list">
+        <span class="tag">MTDC — Maharashtra Tourism</span>
+        <span class="tag">Directorate of Tourism</span>
+        <span class="tag">Dadasaheb Phalke Chitranagari (Official)</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Notable PR Appearances</div>
+      <div class="card-value">Founder Santosh Mijgar promoted the park at the <strong>Cannes Film Festival</strong> and various Maharashtra government tourism events.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Press Mention</div>
+      <div class="card-value"><strong>Gulf News</strong> — "Visitors to Mumbai can tour the set of a Bollywood blockbuster in the making" (feature article on launch of Film City tours)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 4 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">04</div>
+    <div class="phase-title">Transformation &amp; Pain Points</div>
+  </div>
+
+  <!-- Pain Points -->
+  <div class="pain-card">
+    <span class="pain-intensity severe">Severe</span>
+    <div class="pain-text">
+      <strong>"I've lived in Mumbai for years and never been inside FilmCity — it feels inaccessible and exclusive."</strong>
+      <span>Current bad solution: YouTube videos, film set documentaries, or no access at all. Bollywood Park provides the ONLY official public entry.</span>
+    </div>
+  </div>
+  <div class="pain-card">
+    <span class="pain-intensity moderate">Moderate</span>
+    <div class="pain-text">
+      <strong>"Mumbai weekends are the same old Gateway of India / Marine Drive routine."</strong>
+      <span>Current bad solution: generic tourist circuits. No unique Bollywood-first experience previously existed.</span>
+    </div>
+  </div>
+  <div class="pain-card">
+    <span class="pain-intensity moderate">Moderate</span>
+    <div class="pain-text">
+      <strong>"I'm visiting Mumbai from another city/country and want a uniquely Indian experience — not a museum."</strong>
+      <span>Current bad solution: celebrity home tours (passive), random film district walks.</span>
+    </div>
+  </div>
+  <div class="pain-card">
+    <span class="pain-intensity mild">Mild</span>
+    <div class="pain-text">
+      <strong>"Family outings are boring — nothing to do that excites both kids and adults."</strong>
+      <span>Current bad solution: malls, generic parks. Bollywood Park offers multi-generational Bollywood nostalgia + live shows.</span>
+    </div>
+  </div>
+
+  <!-- Transformation -->
+  <div style="margin-top:28px;">
+    <div class="ba-card">
+      <div class="ba-before">
+        <div class="ba-label">Before</div>
+        <div class="ba-text">A Bollywood fan who has only ever watched their favourite stars on a screen</div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-after">
+        <div class="ba-label">After</div>
+        <div class="ba-text">Standing on the actual set where your favourite song was filmed, in costume, recording your own voice in a professional studio</div>
+      </div>
+    </div>
+    <div class="ba-card">
+      <div class="ba-before">
+        <div class="ba-label">Before</div>
+        <div class="ba-text">A Mumbai weekend with nothing memorable planned — another mall trip</div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-after">
+        <div class="ba-label">After</div>
+        <div class="ba-text">An unforgettable 3-hour cinematic adventure inside 520 acres of real Bollywood history, photos your friends will envy</div>
+      </div>
+    </div>
+    <div class="ba-card">
+      <div class="ba-before">
+        <div class="ba-label">Before</div>
+        <div class="ba-text">Travelling to Mumbai with no idea where Bollywood actually happens</div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-after">
+        <div class="ba-label">After</div>
+        <div class="ba-text">Walking through the same Goregaon sets that produced India's most iconic films — guided, immersive, official</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Target Audience -->
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-label">Primary Demo</div>
+      <div class="card-value">Indian families (25–55), domestic tourists from Tier 2 cities, international tourists visiting Mumbai, Bollywood enthusiasts, school/college groups, content creators</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Psychographic</div>
+      <div class="card-value">Emotionally connected to Bollywood as cultural identity. Nostalgic, proud of Indian cinema. Seeks experiences to share on social media. Values unique "first-ever" / exclusive access.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Life Stage</div>
+      <div class="card-value">Young couples on dates, families with children 8+, college friend groups, solo domestic travellers, NRIs revisiting cultural roots, international tourists</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Emotional Triggers</div>
+      <div class="tag-list">
+        <span class="tag">Childhood Bollywood nostalgia</span>
+        <span class="tag">Pride in Indian cinema</span>
+        <span class="tag">FOMO / exclusive access</span>
+        <span class="tag">Creating Insta-worthy moments</span>
+        <span class="tag">Bringing dreams to life</span>
+        <span class="tag">Family bonding</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 5 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">05</div>
+    <div class="phase-title">Competitive Positioning</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Competitor</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Key Weakness vs. Bollywood Park</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SJ Studio &amp; Entertainment</strong> (Bollywood Tour, Kurla)</td>
+        <td>Private studio tour</td>
+        <td>₹1,500–2,500</td>
+        <td>Not inside official Film City. Sets are recreated, not original. No MTDC affiliation.</td>
+      </tr>
+      <tr>
+        <td><strong>Bombay Insider Tours</strong> (Private Bollywood Studio Tour)</td>
+        <td>Private guided tour operator</td>
+        <td>₹2,500–5,000+</td>
+        <td>Premium-priced; doesn't offer the park zones, live dance shows, or costume try-outs. Generic city tour add-on.</td>
+      </tr>
+      <tr>
+        <td><strong>GetYourGuide / Viator listings</strong> (Various operators)</td>
+        <td>Aggregated third-party tours</td>
+        <td>₹1,200–3,500</td>
+        <td>Operators not official. No dedicated park infrastructure. No guaranteed daily programming like shows &amp; Chroma studios.</td>
+      </tr>
+      <tr>
+        <td><strong>Dadasaheb Phalke Chitranagri</strong> (General public access)</td>
+        <td>Government facility, semi-open</td>
+        <td>Low / variable</td>
+        <td>No curated experience, no show zones, no interactivity. Bollywood Park is the official private operator within this space.</td>
+      </tr>
+      <tr>
+        <td><strong>Celebrity Home Tours</strong> (Juhu / Bandra)</td>
+        <td>Sightseeing drive-by tour</td>
+        <td>₹800–1,500</td>
+        <td>Entirely passive — you see gate-walls, not sets. No inside access, no participation.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:24px;">
+    <div class="vs-row">
+      <div class="vs-them">🚫 Other tours: recreated studio sets in random locations across Mumbai</div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-us">✅ Us: The actual, original Film City Mumbai — 520 acres of real Bollywood history</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-them">🚫 Others: No guaranteed programming — dependent on live shoots</div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-us">✅ Us: Daily live dance shows, Chroma studios &amp; all zones run regardless of shoot schedule</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-them">🚫 Others: Generic tour operators with no official affiliation</div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-us">✅ Us: Officially affiliated with MTDC &amp; Dadasaheb Phalke Chitranagari — India's only authorized Bollywood park operator</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-them">🚫 Others: Passive sightseeing from bus windows</div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-us">✅ Us: Walk-through sets, costume try-ons, voice recording, Chroma acting — fully participatory</div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-them">🚫 Others: English-only or Hindi-only experiences</div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-us">✅ Us: Guided in Hindi, Marathi &amp; English — serves all of India, not just metros</div>
+    </div>
+  </div>
+
+  <div class="wide-card" style="margin-top:20px;">
+    <h3>Category Conventions (what all Bollywood tours do — Bollywood Park breaks from these)</h3>
+    <ul>
+      <li>Most tours are bus-only — passive. Bollywood Park is walk-in, hands-on.</li>
+      <li>Most promise celebrity sightings (undeliverable). Bollywood Park promises guaranteed shows &amp; interactivity instead.</li>
+      <li>Most operate outside Film City. Bollywood Park is inside the iconic walls.</li>
+      <li>Most are half-day city combo tours. Bollywood Park is a standalone destination.</li>
+    </ul>
+  </div>
+
+  <div class="wide-card">
+    <h3>Unique Differentiators</h3>
+    <div class="tag-list">
+      <span class="tag">India's FIRST reel-to-real Bollywood theme park</span>
+      <span class="tag">Inside official Film City Mumbai campus</span>
+      <span class="tag">MTDC &amp; Government affiliated</span>
+      <span class="tag">17 Lakh+ visitors served</span>
+      <span class="tag">Daily live entertainment guarantee</span>
+      <span class="tag">Chroma / Green Screen studio access</span>
+      <span class="tag">Foley Sound Zone</span>
+      <span class="tag">Bollywood Voice Recording Studio</span>
+      <span class="tag">Costume Try-Outs</span>
+      <span class="tag">14 years of operation</span>
+      <span class="tag">Multilingual guides</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 6 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">06</div>
+    <div class="phase-title">Founder &amp; Origin Story</div>
+  </div>
+
+  <div class="founder-box">
+    <h3>The Man Who Opened Bollywood's Doors</h3>
+
+    <div class="f-row">
+      <div class="f-key">Founder</div>
+      <div class="f-val">Santosh Mijgar — Director, MOS Utility Pvt. Ltd.</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Co-Enabler</div>
+      <div class="f-val">Mr. Chirag Shah — Chairman, MOS Utility Pvt. Ltd. (FinTech entrepreneur; provided financial backing and institutional vision)</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Origin Hook</div>
+      <div class="f-val">Santosh understood the pain of thousands who came to Mumbai dreaming of Film City — but could never get inside. He decided to fix that.</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Personal Pain Point</div>
+      <div class="f-val">Felt a deep personal connection to the dreams of aspiring film industry hopefuls who arrived in Mumbai with nothing but a desire to see where Bollywood was made — and found the gates closed to them.</div>
+    </div>
+
+    <div class="founder-quote">
+      "He made it his mission to open Dadasaheb Phalke Chitranagri to the public — just to see them smile."
+    </div>
+
+    <div class="f-row">
+      <div class="f-key">Credibility Marker</div>
+      <div class="f-val">Promoted the park at the Cannes Film Festival. Collaborates directly with Maharashtra Government on tourism events. Named Director of MOS Utility after his tourism vision succeeded.</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Launch Year</div>
+      <div class="f-val">2014 — India's first and only Bollywood theme park inside Film City</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Mission Beyond the Park</div>
+      <div class="f-val">Increase tourism to Maharashtra; preserve and democratize India's cinematic heritage; give every Indian — regardless of background — access to the magic of Bollywood.</div>
+    </div>
+    <div class="f-row">
+      <div class="f-key">Business Origin</div>
+      <div class="f-val">Chirag Shah launched India's first prepaid card (DONECARD) in 2005 — serial entrepreneur who extended his vision from FinTech to entertainment &amp; cultural tourism by backing Santosh's dream.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PHASE 7 ══════════════════════════════ -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">07</div>
+    <div class="phase-title">Ad-Ready Hooks &amp; Angles — All 15 Formats</div>
+  </div>
+
+  <!-- BEFORE & AFTER -->
+  <div class="hook-section">
+    <div class="hook-type-label">Before &amp; After</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Before: a lifelong Bollywood fan who's only ever seen it on a screen. After: you're inside the set, in costume, recording your voice in a real studio."</div>
+      <div class="hook-card">"Before: another forgettable Mumbai weekend. After: 3 hours inside 520 acres of real Bollywood history — photos, memories, and a story you'll tell for years."</div>
+      <div class="hook-card">"You came to Mumbai for the magic. Now walk through the door where it actually happens. Before: dreaming about Film City. After: living it."</div>
+    </div>
+  </div>
+
+  <!-- BULLET POINTS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Bullet Points</div>
+    <div class="hooks-grid">
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">What you get inside Bollywood Park:</strong>
+        ✦ Walk through iconic film sets<br>
+        ✦ Record in a real Bollywood singing studio<br>
+        ✦ Try on Bollywood costumes &amp; act in your own clip<br>
+        ✦ Live dance show — daily, guaranteed<br>
+        ✦ Chroma / green-screen movie magic
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">5 reasons 17 lakh people chose Bollywood Park:</strong>
+        ✦ India's ONLY reel-to-real Bollywood park<br>
+        ✦ Inside the actual Film City Mumbai<br>
+        ✦ Officially affiliated with the Maharashtra Government<br>
+        ✦ Shows run daily — no shoot required<br>
+        ✦ Starting at just ₹1,200/person
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Not just a tour. An experience:</strong>
+        ✦ 7D ride inside Bollywood's world<br>
+        ✦ Foley sound studio (you create the effects)<br>
+        ✦ Rajmahal, Goa, Fort &amp; Cave sets to explore<br>
+        ✦ Selfie zones that'll break your camera roll<br>
+        ✦ In Hindi, Marathi &amp; English — all of India welcome
+      </div>
+    </div>
+  </div>
+
+  <!-- NEGATIVE MARKETING -->
+  <div class="hook-section">
+    <div class="hook-type-label">Negative Marketing</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Don't come to Bollywood Park if you want a passive bus ride. You'll be too busy recording in our singing studio and acting on set to sit still."</div>
+      <div class="hook-card">"This isn't a celebrity home tour where you stare at a gate and go home. It's the inside of Film City — where the sets are real and the magic is yours to touch."</div>
+      <div class="hook-card">"Skip this if you prefer the same Gateway–Marine Drive tourist loop. But if you actually want to understand where Bollywood lives — the door is open."</div>
+    </div>
+  </div>
+
+  <!-- NEWS HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">News / Urgency</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"BREAKING: Film City Mumbai is now open to the public — and 17 lakh Indians have already been inside. Have you?"</div>
+      <div class="hook-card">"After 14 years and 17 lakh visitors, India's first Bollywood theme park inside Film City is in full swing. Summer bookings are selling fast."</div>
+      <div class="hook-card">"India's most iconic studio campus — 520 acres of Bollywood history — just got its first official public experience. Bollywood Park is officially open. Book now."</div>
+    </div>
+  </div>
+
+  <!-- HANDWRITING HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Handwriting / Note Style</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Finally inside Film City ✨ pinch me"</div>
+      <div class="hook-card">"Wore the costume. Walked the set. Recorded my own Bollywood song. Best ₹1,200 ever spent."</div>
+      <div class="hook-card">"Mummy I'm in the movie 🎬 (at Bollywood Park, Filmcity Mumbai)"</div>
+    </div>
+  </div>
+
+  <!-- US VS THEM -->
+  <div class="hook-section">
+    <div class="hook-type-label">Us vs Them</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Other tours show you the outside of Film City. We take you inside — into the actual sets where your favourite shows are filmed."</div>
+      <div class="hook-card">"Generic Bollywood tours: a bus, a guide, a wave at some distant buildings. Bollywood Park: costume on, mic in hand, standing on the set. The choice is obvious."</div>
+      <div class="hook-card">"Any operator can call themselves a Bollywood tour. Only one is officially inside Dadasaheb Phalke Chitranagari with Maharashtra Government backing. That's us."</div>
+    </div>
+  </div>
+
+  <!-- STATISTIC HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Statistics</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"17 lakh visitors. 14 years. One place. India's first Bollywood theme park inside Film City Mumbai — and you haven't been yet?"</div>
+      <div class="hook-card">"520 acres. 80+ years of film history. 1 park that lets you walk inside it all. Bollywood Park, Mumbai FilmCity."</div>
+      <div class="hook-card">"Since 2014, over 17 lakh people have discovered that Bollywood isn't just on the screen. It's a set you can walk through, a costume you can wear, a studio you can record in."</div>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Social Proof</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"17 lakh visitors walked through these doors before you. They all had the same question: 'Why did I wait so long?' Book your Bollywood Park tickets today."</div>
+      <div class="hook-card">"The official Bollywood experience — government-affiliated, Cannes-recognised, Mumbai's most unique day out. Join over 17 lakh who've already said yes."</div>
+      <div class="hook-card">"Families from 25 states, tourists from 40+ countries, and die-hard Bollywood fans from around the world have all stood on these sets. Your turn."</div>
+    </div>
+  </div>
+
+  <!-- PRESS HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Press</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Gulf News called it the chance to tour Bollywood blockbuster sets in the making. Maharashtra Tourism made it official. 17 lakh visitors made it legendary."</div>
+      <div class="hook-card">"Featured at Cannes. Backed by the Maharashtra Government. Visited by over 17 lakh tourists. Bollywood Park Mumbai — India's most talked-about cinematic experience."</div>
+      <div class="hook-card">"'Film-crazy Indians can now visit where Bollywood blockbusters are created' — Gulf News. The doors have been open since 2014. Have you walked through yet?"</div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Testimonials</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"'The famous Dhinka Chika song from READY was shot right there — I couldn't believe that was the location.' — Thapki Pyaar Ki, TripAdvisor visitor"</div>
+      <div class="hook-card">"'Your views on films will totally change after this. You must visit this place.' — Nitish, verified visitor"</div>
+      <div class="hook-card">"'The guide was knowledgeable and fun. We got to see real Bollywood sets! I suggest this tour — it's really worth having this experience.' — Verified visitor, bollywoodpark.in"</div>
+    </div>
+  </div>
+
+  <!-- FOUNDER STORY HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Founder Story</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Santosh Mijgar watched thousands arrive in Mumbai chasing a Bollywood dream — only to find the gates of Film City locked. So he opened them. For everyone."</div>
+      <div class="hook-card">"His mission was simple: open Dadasaheb Phalke Chitranagri to the public — just to see them smile. 14 years later, 17 lakh smiles later — Bollywood Park."</div>
+      <div class="hook-card">"One man. One dream. One locked gate that shouldn't have been locked. Santosh Mijgar built India's first Bollywood theme park so you could walk inside the magic."</div>
+    </div>
+  </div>
+
+  <!-- FEATURES & BENEFITS -->
+  <div class="hook-section">
+    <div class="hook-type-label">Features &amp; Benefits</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"Chroma studio inside Film City: step in front of the green screen and watch yourself appear in the Bollywood poster of your dreams — real post-production magic, zero editing skill required."</div>
+      <div class="hook-card">"A real Bollywood singing studio: step into the recording booth, put on the headphones, and hear yourself in a professional Bollywood mix. Not a toy. Not a demo. The real thing."</div>
+      <div class="hook-card">"Daily live dance show: trained Bollywood performers, full costumes, the iconic numbers you know every word to — performed live, just for you, every single day."</div>
+    </div>
+  </div>
+
+  <!-- UGC HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">UGC / Customer Voice</div>
+    <div class="hooks-grid">
+      <div class="hook-card">"I wore the Maharaja costume, walked through the Rajmahal set, and recorded my voice in an actual Bollywood studio — all in one afternoon. Mumbai's best ₹1,200 by far."</div>
+      <div class="hook-card">"Bro we literally walked into Film City. Like actually inside. There were TV shoots happening, I stood next to a real set. This is not a tourist trap — it's the real thing."</div>
+      <div class="hook-card">"Took my parents for their anniversary — my dad's been dreaming of seeing Film City since 1990. The look on his face when he walked through the Bollywood Park gates? Worth every rupee."</div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL ANGLES -->
+  <div class="hook-section">
+    <div class="hook-type-label">Carousel Angles (Multi-Slide Narrative Arcs)</div>
+    <div class="hooks-grid">
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Arc 1: "Your Day at Bollywood Park" (sequential experience)</strong>
+        Slide 1: Arrive at the iconic Film City gate → Slide 2: Board the AC bus into 520 acres of Bollywood → Slide 3: Walk through the Rajmahal, Goa Street &amp; Cave sets → Slide 4: Record your voice in the singing studio → Slide 5: Get into costume for Chroma → Slide 6: Watch the live dance show → CTA: "Your turn — Book now at ₹1,200"
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Arc 2: "Scenes You Recognise" (emotional Bollywood nostalgia)</strong>
+        Slide 1: "Remember this scene?" [iconic location reference] → Slide 2: "This is where READY's Dhinka Chika was filmed" → Slide 3: "And you can stand right here" → Slide 4: "Plus 10+ sets, a singing studio, and a live show" → CTA: "Be part of Bollywood's story"
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Arc 3: "Why Every Other Tour Falls Short" (us vs them)</strong>
+        Slide 1: "Most Bollywood tours: a bus tour from outside Film City walls" → Slide 2: "No park zones. No shows. No costumes." → Slide 3: "Bollywood Park: the ONLY official park inside Film City" → Slide 4: "17 lakh visitors already chose the original" → Slide 5: "₹1,200 — all zones included" → CTA: "Don't settle for a drive-by"
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW FORMAT HOOKS -->
+  <div class="hook-section">
+    <div class="hook-type-label">New / Experimental Format Hooks</div>
+    <div class="hooks-grid">
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Pattern Interrupt: "Fake Movie Poster" Format</strong>
+        Visual: Person in Bollywood costume, dramatic lighting, film grain overlay. Text styled as a movie credit: "Starring: YOU. Location: Film City Mumbai. Genre: Unforgettable. Now Booking." Small body: Bollywood Park | ₹1,200 | bollywoodpark.in
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Pattern Interrupt: "Locked Gate" Visual Metaphor</strong>
+        Visual: Old Film City gate, slightly ajar. Headline: "The gate was always locked." Subhead: "Until 2014. Until Santosh Mijgar. Until Bollywood Park." CTA: "Walk through it. ₹1,200."
+      </div>
+      <div class="hook-card">
+        <strong style="display:block;margin-bottom:8px;font-style:normal;">Pattern Interrupt: "Clapperboard" Format</strong>
+        Visual: Film clapperboard graphic. SCENE: "Your Best Mumbai Moment." TAKE: "1 — You've been waiting long enough." CTA: "Action. Book now at bollywoodpark.in."
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- QUICK REFERENCE TABLE -->
+<div class="phase">
+  <div class="phase-label">
+    <div class="phase-num">☑</div>
+    <div class="phase-title">Designer Quick Reference Cheat Sheet</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Element</th><th>Value / Direction</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Primary Headline Color</td><td>Bollywood Red #C0392B on dark / Gold #D4A017 on dark navy</td></tr>
+      <tr><td>Background</td><td>Deep Navy #0D1B2A (hero) / Cream #FAF6EF (content areas)</td></tr>
+      <tr><td>CTA Button Color</td><td>Crimson Red #C0392B — "Book Now" / "Book Tickets"</td></tr>
+      <tr><td>Display Font Direction</td><td>Bold condensed serif or slab (Playfair Display 900 / Bebas Neue) — dramatic, cinematic</td></tr>
+      <tr><td>Body Font</td><td>DM Sans / Open Sans — clean and readable</td></tr>
+      <tr><td>Imagery Direction</td><td>High-saturation, performers in costume, set backdrops, real Film City gates, families laughing</td></tr>
+      <tr><td>Key Number to Amplify</td><td>17 Lakh+ visitors / ₹1,200 starting price / India's FIRST</td></tr>
+      <tr><td>Proof Badge to Include</td><td>MTDC Affiliated / Official Bollywood Park / Since 2014</td></tr>
+      <tr><td>Key URL</td><td>bollywoodpark.in</td></tr>
+      <tr><td>Phone</td><td>8976839337</td></tr>
+      <tr><td>Location Line</td><td>Gate 1, Dadasaheb Phalke Chitranagari, Film City Rd, Goregaon East, Mumbai</td></tr>
+      <tr><td>Tone to Avoid</td><td>Overclaiming celebrity access; comparing to Hollywood; calling it a "ride-based" park</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <span>Bollywood Park Mumbai FilmCity — Ad Creative Research Brief</span>
+  <span>Prepared by Senior Performance Creative Strategist · June 2026</span>
+  <span>bollywoodpark.in</span>
+</footer>
+
+</body>
+</html>

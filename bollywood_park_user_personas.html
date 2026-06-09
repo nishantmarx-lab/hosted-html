@@ -1,0 +1,535 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{padding:1.5rem 0;max-width:680px}
+.hero{margin-bottom:2rem}
+.hero h1{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.hero p{font-size:14px;color:var(--color-text-secondary);line-height:1.6}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2rem}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.persona-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);margin-bottom:1.5rem;overflow:hidden}
+.persona-header{display:flex;align-items:flex-start;gap:14px;padding:1.25rem}
+.persona-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.persona-meta{flex:1;min-width:0}
+.persona-name{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.persona-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.55}
+.persona-badges{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.badge{font-size:11px;padding:3px 9px;border-radius:var(--border-radius-md);font-weight:500}
+.badge-count{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.badge-pct{background:var(--color-background-info);color:var(--color-text-info)}
+.section-divider{height:0.5px;background:var(--color-border-tertiary)}
+.section{padding:1rem 1.25rem}
+.section-title{font-size:12px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.moment{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:8px;font-size:13px;color:var(--color-text-secondary);line-height:1.55}
+.moment strong{color:var(--color-text-primary);font-weight:500}
+.moment-quote{font-size:12px;color:var(--color-text-tertiary);margin-top:5px;font-style:italic;border-left:2px solid var(--color-border-secondary);padding-left:8px}
+.moment-link{font-size:11px;color:var(--color-text-info)}
+.moment-link a{color:var(--color-text-info);text-decoration:none}
+.triggers-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:0}
+.trigger-pill{background:var(--color-background-warning);color:var(--color-text-warning);border-radius:var(--border-radius-md);padding:6px 10px;font-size:12px;font-weight:500;text-align:center}
+.hook{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;color:var(--color-text-primary)}
+.hook:last-child{border-bottom:none}
+.hook-num{font-size:11px;font-weight:500;color:var(--color-text-tertiary);min-width:18px;margin-top:2px}
+.kw-chips{display:flex;flex-wrap:wrap;gap:6px}
+.kw{background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:4px 10px;font-size:12px;color:var(--color-text-secondary);font-style:italic}
+.rank-bar{display:flex;align-items:center;gap:8px;padding:6px 0}
+.rank-fill{height:6px;border-radius:3px;background:var(--color-background-info)}
+.rank-label{font-size:12px;color:var(--color-text-secondary);min-width:80px}
+.rank-pct{font-size:12px;color:var(--color-text-secondary);min-width:32px;text-align:right}
+.overview-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.overview-table th{text-align:left;font-weight:500;font-size:11px;color:var(--color-text-tertiary);padding:4px 8px 8px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.overview-table td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);vertical-align:top}
+.overview-table td:first-child{color:var(--color-text-primary);font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.p1c{background:#534AB7}.p2c{background:#0F6E56}.p3c{background:#993C1D}.p4c{background:#185FA5}.p5c{background:#993556}.p6c{background:#854F0B}.p7c{background:#A32D2D}.p8c{background:#3B6D11}.p9c{background:#636058}.p10c{background:#3C3489}
+</style>
+<div class="wrap">
+<h2 class="sr-only">Bollywood Park Filmcity Mumbai — consumer persona intelligence report extracted from 400+ Google Maps reviews</h2>
+
+<div class="hero">
+  <h1>Bollywood Park Filmcity — persona intelligence report</h1>
+  <p>Extracted from 400+ Google Maps reviews. Personas ranked by frequency, each with micro-moments, ad hooks, and emotional triggers ready for campaign use.</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat"><div class="stat-label">Reviews analysed</div><div class="stat-val">400+</div></div>
+  <div class="stat"><div class="stat-label">Personas found</div><div class="stat-val">10</div></div>
+  <div class="stat"><div class="stat-label">Positive sentiment</div><div class="stat-val">58%</div></div>
+  <div class="stat"><div class="stat-label">Negative sentiment</div><div class="stat-val">42%</div></div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #534AB7">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#EEEDFE"><i class="ti ti-movie" style="font-size:20px;color:#534AB7" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#1 — The Bollywood Devotee</div>
+      <div class="persona-desc">A passionate Bollywood fan who visits primarily to feel close to the film world they love. They connect emotionally with costumes, sets, and live performances. Satisfied by the atmosphere and "filmy vibe" even if the tour is limited.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~110 reviews</span>
+        <span class="badge badge-pct">~27% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I visit a Bollywood-themed space, <strong>I want to</strong> feel the energy of the film world, <strong>so I can</strong> live out my Bollywood fantasy.<div class="moment-quote">"Can feel the energy of Bollywood." / "Great experience with the Bollywood, felt like an actor."</div></div>
+    <div class="moment"><strong>When</strong> I see a Bollywood costume station, <strong>I want to</strong> dress up and take photos, <strong>so I can</strong> feel like a star and capture a memory.<div class="moment-quote">"Loved it, costumes so much fun." / "Amazing experience with Bahubali costume."</div></div>
+    <div class="moment"><strong>When</strong> I watch the live show, <strong>I want to</strong> be entertained by authentic Bollywood performances, <strong>so I can</strong> relive the magic of Indian cinema.<div class="moment-quote">"The Bollywood Park show was absolutely mind-blowing! From the moment the performance started, the energy, music, dance, and visuals completely transported us into the world of Bollywood."</div></div>
+    <div class="moment"><strong>When</strong> I interact with the Aamir Khan or Govinda lookalikes, <strong>I want to</strong> get close to my favourite stars, <strong>so I can</strong> feel a brush of celebrity culture.<div class="moment-quote">"The Aamir Khan and Govinda lookalikes were fantastic and very entertaining."</div></div>
+    <div class="moment"><strong>When</strong> I see the Rajasthani or period sets, <strong>I want to</strong> immerse myself in the grandeur, <strong>so I can</strong> feel like I'm inside a real movie.<div class="moment-quote">"The experience was nice. The theme, Rajasthani, was so beautiful and adorable."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Identity / fandom</div>
+      <div class="trigger-pill">Escapism</div>
+      <div class="trigger-pill">Belonging</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Step inside Bollywood. Wear the costume. Feel the energy."</div>
+    <div class="hook"><span class="hook-num">02</span> "Where Bollywood fans stop watching and start living the story."</div>
+    <div class="hook"><span class="hook-num">03</span> "Live shows. Iconic sets. The Bollywood vibe you've always imagined."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"bollywood vibe"</span><span class="kw">"felt like an actor"</span><span class="kw">"mind-blowing"</span><span class="kw">"transported us"</span><span class="kw">"amazing costumes"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #A32D2D">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#FCEBEB"><i class="ti ti-mood-angry" style="font-size:20px;color:#A32D2D" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#2 — The Disappointed Value Seeker</div>
+      <div class="persona-desc">Visitors who paid ₹1200/person expecting a genuine film-city experience and felt deeply let down. Their frustration centres on perceived deception — sets covered by metal walls, jungle bus rides, and shows that don't justify the price. Highly vocal and influential in deterring future visitors.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~90 reviews</span>
+        <span class="badge badge-pct">~22% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I pay ₹1200 per person, <strong>I want to</strong> see real film sets and shooting, <strong>so I can</strong> feel the experience was worth it.<div class="moment-quote">"Compare to 1200Rs ticket per pax, it is totally waste of money."</div></div>
+    <div class="moment"><strong>When</strong> I arrive and see metal shed walls, <strong>I want to</strong> understand what I'm actually getting, <strong>so I can</strong> make an informed choice.<div class="moment-quote">"Most of the sets are completely covered by large sheet-iron walls, so visitors cannot actually see anything inside."</div></div>
+    <div class="moment"><strong>When</strong> the 7D show has poor projector quality, <strong>I want to</strong> flag this publicly, <strong>so I can</strong> warn others not to be misled.<div class="moment-quote">"The final 7D show was the biggest disappointment. The projector quality was extremely poor, the visuals looked outdated."</div></div>
+    <div class="moment"><strong>When</strong> I compare to Ramoji Film City, <strong>I want to</strong> articulate what's missing, <strong>so I can</strong> set realistic expectations for others.<div class="moment-quote">"Ramoji Film City is far better than this. We saw only blue patras and green net."</div></div>
+    <div class="moment"><strong>When</strong> I find no restrooms, no cooling in summer heat, <strong>I want to</strong> express that basic visitor needs are ignored, <strong>so I can</strong> push for change.<div class="moment-quote">"No proper restroom facility at waiting area, no cooler in summer, treated very badly even after taking 1200 per person."</div></div>
+    <div class="moment"><strong>When</strong> the canteen charges double prices, <strong>I want to</strong> highlight exploitative pricing, <strong>so I can</strong> protect other visitors.<div class="moment-quote">"Even canteen staff looting public, 20Rs ka 1 pav... Har cheez ka bhaav double-triple."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Betrayal / mistrust</div>
+      <div class="trigger-pill">Value for money</div>
+      <div class="trigger-pill">Social warning</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks (win-back / improvement messaging)</div>
+    <div class="hook"><span class="hook-num">01</span> "We heard you. Here's what's changed at Bollywood Park."</div>
+    <div class="hook"><span class="hook-num">02</span> "₹1200 and worth every rupee — new sets, new shows, upgraded experience."</div>
+    <div class="hook"><span class="hook-num">03</span> "Real sets. Real access. See what's now open to visitors."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"waste of money"</span><span class="kw">"not worth 1200"</span><span class="kw">"overhyped"</span><span class="kw">"misleading"</span><span class="kw">"paisa wasool nahi"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #0F6E56">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#E1F5EE"><i class="ti ti-users" style="font-size:20px;color:#0F6E56" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#3 — The Family Fun Planner</div>
+      <div class="persona-desc">Parents or family groups seeking a wholesome, entertaining day out. They prioritise enjoyment for all ages — costume stations, live shows, and photo opportunities. They're forgiving of quality gaps as long as kids are happy and the atmosphere is lively.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~55 reviews</span>
+        <span class="badge badge-pct">~14% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> planning a Mumbai day out with kids, <strong>I want to</strong> find something entertaining for all ages, <strong>so I can</strong> create a memorable family experience.<div class="moment-quote">"Excellent place to enjoy with family." / "Good our kids enjoyed it."</div></div>
+    <div class="moment"><strong>When</strong> I see the costume station, <strong>I want to</strong> dress the whole family up, <strong>so I can</strong> take fun photos to keep forever.<div class="moment-quote">"What a day well spent. Could not have been better. Must try dresses."</div></div>
+    <div class="moment"><strong>When</strong> the live show entertains my kids, <strong>I want to</strong> share positive feedback, <strong>so I can</strong> recommend it to other families.<div class="moment-quote">"A very fun and good experience for family and friends." / "Had a lovely time with family."</div></div>
+    <div class="moment"><strong>When</strong> I see well-behaved, friendly staff, <strong>I want to</strong> feel reassured, <strong>so I can</strong> relax and enjoy the day.<div class="moment-quote">"Had very wonderful experience, very clean and polite staff."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Family bonding</div>
+      <div class="trigger-pill">Nostalgia</div>
+      <div class="trigger-pill">Safe fun</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Create memories the whole family will talk about for years."</div>
+    <div class="hook"><span class="hook-num">02</span> "Dress up. Dance along. The perfect family day at Bollywood Park."</div>
+    <div class="hook"><span class="hook-num">03</span> "Kids love it. Parents too. Book your family's Bollywood day now."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"family time"</span><span class="kw">"kids enjoyed"</span><span class="kw">"nice way to capture memories"</span><span class="kw">"good place to hang out"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #185FA5">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#E6F1FB"><i class="ti ti-globe" style="font-size:20px;color:#185FA5" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#4 — The International Tourist</div>
+      <div class="persona-desc">Foreign visitors (European, East Asian, Russian, French, German, Taiwanese) with high expectations for a behind-the-scenes film industry experience. They compare it unfavourably to Hollywood studio tours. Significantly impacted by language barriers (Hindi-only shows) and the steep foreigner price (₹3200). Often post long, detailed, critical reviews.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~40 reviews</span>
+        <span class="badge badge-pct">~10% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I'm visiting India, <strong>I want to</strong> understand Bollywood from the inside, <strong>so I can</strong> take home a genuine cultural experience.<div class="moment-quote">"A must-see for all Bollywood fans. Excellent value for money, even though we tourists have to pay three times the entrance fee."</div></div>
+    <div class="moment"><strong>When</strong> the show is entirely in Hindi, <strong>I want to</strong> follow along or have English support, <strong>so I can</strong> actually understand what's happening.<div class="moment-quote">"It wasn't in English, so as a foreign tourist, you won't understand what is going on."</div></div>
+    <div class="moment"><strong>When</strong> I pay ₹3200, <strong>I want to</strong> see production facilities and indoor sets, <strong>so I can</strong> feel it was worth the premium.<div class="moment-quote">"For European or Western tourists looking for a genuine look into movie production, it is absolutely not worth the money (3200INR)."</div></div>
+    <div class="moment"><strong>When</strong> I'm lucky enough to see a real shoot, <strong>I want to</strong> share that moment, <strong>so I can</strong> tell others what's possible.<div class="moment-quote">"The bus tour was fun and we were lucky enough to see a film shoot in progress."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Cultural curiosity</div>
+      <div class="trigger-pill">Prestige / inclusion</div>
+      <div class="trigger-pill">Fair treatment</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Bollywood's most iconic studio, now in English — guided tours for international visitors."</div>
+    <div class="hook"><span class="hook-num">02</span> "See where India's biggest films come to life. International tour available."</div>
+    <div class="hook"><span class="hook-num">03</span> "More than a tour — a cinematic cultural immersion in the heart of Mumbai."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"behind the scenes"</span><span class="kw">"not in English"</span><span class="kw">"3200 INR"</span><span class="kw">"cultural experience"</span><span class="kw">"Hollywood comparison"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #993C1D">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#FAECE7"><i class="ti ti-camera" style="font-size:20px;color:#993C1D" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#5 — The Memory Maker / Photo Seeker</div>
+      <div class="persona-desc">Visitors whose primary goal is to get great photos and create shareable content. They love the costume stations, themed sets, and photo backdrops. They are highly satisfied by the aesthetics and regularly recommend the costuming experience specifically.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~35 reviews</span>
+        <span class="badge badge-pct">~9% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I see the costume options, <strong>I want to</strong> try on the most elaborate outfits, <strong>so I can</strong> get stunning photos I'll share for years.<div class="moment-quote">"Costume was well fitted to me, staff was very friendly and cooperative which assist me to wear costume."</div></div>
+    <div class="moment"><strong>When</strong> I explore the themed sets, <strong>I want to</strong> find the most photogenic spots, <strong>so I can</strong> make my Instagram look incredible.<div class="moment-quote">"Such a nice way to capture memories here." / "Bol dapat ka Film City, you can take pictures wearing Bollywood clothes! It's so much fun!"</div></div>
+    <div class="moment"><strong>When</strong> the Rajasthani or period set is available, <strong>I want to</strong> dress to match the theme, <strong>so I can</strong> create a cohesive, editorial photo set.<div class="moment-quote">"Costume is very very nice." / "Customs are too good and very happy to wear such attire."</div></div>
+    <div class="moment"><strong>When</strong> I leave, <strong>I want to</strong> recommend the experience to friends, <strong>so I can</strong> share the joy I felt.<div class="moment-quote">"Loved it, costumes so much fun." / "What a day well spent. Must try dresses."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Self-expression</div>
+      <div class="trigger-pill">Status / sharing</div>
+      <div class="trigger-pill">Aesthetic joy</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Your most iconic photo, waiting inside Bollywood Park."</div>
+    <div class="hook"><span class="hook-num">02</span> "Dress like a star. Shoot like a star. First costume is on us."</div>
+    <div class="hook"><span class="hook-num">03</span> "50+ Bollywood costumes. Infinite photo moments."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"nice costume"</span><span class="kw">"capture memories"</span><span class="kw">"must try dresses"</span><span class="kw">"photo opportunity"</span><span class="kw">"well fitted"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #993556">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#FBEAF0"><i class="ti ti-backpack" style="font-size:20px;color:#993556" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#6 — The First-Time Mumbai Tourist</div>
+      <div class="persona-desc">Domestic and out-of-state travellers visiting Mumbai for the first time, for whom Film City is a must-tick bucket-list item. They go with moderate expectations and often leave satisfied. "Must visit when in Mumbai" is their mantra. They're influenced by itinerary advice and won't research deeply before going.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~30 reviews</span>
+        <span class="badge badge-pct">~7% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I plan my Mumbai trip, <strong>I want to</strong> add must-visit attractions to my itinerary, <strong>so I can</strong> see everything the city is famous for.<div class="moment-quote">"Absolutely must visit place during Mumbai tour." / "Best place to visit in Mumbai."</div></div>
+    <div class="moment"><strong>When</strong> I arrive for the first time, <strong>I want to</strong> understand the magic of Bollywood, <strong>so I can</strong> feel connected to India's film heritage.<div class="moment-quote">"It's a complete paisa-wasool tour package. A must-visit whenever you're in Mumbai."</div></div>
+    <div class="moment"><strong>When</strong> I see actors on the way in, <strong>I want to</strong> capture that moment, <strong>so I can</strong> tell everyone back home.<div class="moment-quote">"I saw some actors on the way to FilmCity, and this was overall 4 hours."</div></div>
+    <div class="moment"><strong>When</strong> I recommend this to friends, <strong>I want to</strong> share something unique about Mumbai, <strong>so I can</strong> be the person who discovered it.<div class="moment-quote">"Nice to visit this place, recommend to all my friends and family members."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">FOMO / bucket list</div>
+      <div class="trigger-pill">Discovery</div>
+      <div class="trigger-pill">Social proof</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "No Mumbai trip is complete without this. Here's why."</div>
+    <div class="hook"><span class="hook-num">02</span> "The one experience every Mumbai first-timer adds to their list."</div>
+    <div class="hook"><span class="hook-num">03</span> "From Dadar to Dubai, Film City is the story you'll keep telling."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"must visit"</span><span class="kw">"paisa wasool"</span><span class="kw">"worth visiting while in Mumbai"</span><span class="kw">"Mumbai tour"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #854F0B">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#FAEEDA"><i class="ti ti-school" style="font-size:20px;color:#854F0B" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#7 — The Curious Cinephile / Film Learner</div>
+      <div class="persona-desc">Visitors genuinely interested in the craft of filmmaking — green screen technology, Foley effects, dubbing, set design, and production workflow. They are the most satisfied when they get educational content and behind-the-scenes access. They respond positively to the post-production demos and voice recording studio.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~25 reviews</span>
+        <span class="badge badge-pct">~6% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I attend the post-production session, <strong>I want to</strong> understand how Bollywood films are made, <strong>so I can</strong> respect the craft and share that knowledge.<div class="moment-quote">"3 hrs of entertainment and gaining knowledge of shooting." / "Its amazing exploring various sets and film making process, also went through an amazing voice recording session."</div></div>
+    <div class="moment"><strong>When</strong> I learn about green screen and Foley, <strong>I want to</strong> connect theory to practice, <strong>so I can</strong> appreciate films differently.<div class="moment-quote">"Get a brief explanation of how chroma keying (green screen technology) works."</div></div>
+    <div class="moment"><strong>When</strong> the recording studio session is available, <strong>I want to</strong> try singing in a professional setup, <strong>so I can</strong> experience what it feels like to be an artist.<div class="moment-quote">"One can record a song by paying Rs.800/- for one stanza audio video recording here in a studio... the quality of recording is too good."</div></div>
+    <div class="moment"><strong>When</strong> I visit the real sets, <strong>I want to</strong> understand the discipline behind filmmaking, <strong>so I can</strong> see cinema differently forever.<div class="moment-quote">"Being there made me realise that cinema is less about glamour and more about discipline, patience, and teamwork."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Intellectual curiosity</div>
+      <div class="trigger-pill">Creative aspiration</div>
+      <div class="trigger-pill">Behind-the-scenes access</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Ever wondered how your favourite scene was made? Now you can find out."</div>
+    <div class="hook"><span class="hook-num">02</span> "Record your own Bollywood song. ₹800. Your voice. Professional studio."</div>
+    <div class="hook"><span class="hook-num">03</span> "Green screens. Foley rooms. Dubbing studios. The real Bollywood, demystified."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"knowledge of shooting"</span><span class="kw">"film making process"</span><span class="kw">"voice recording"</span><span class="kw">"behind the scenes"</span><span class="kw">"chroma keying"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #3B6D11">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#EAF3DE"><i class="ti ti-friends" style="font-size:20px;color:#3B6D11" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#8 — The Group Outing Organiser</div>
+      <div class="persona-desc">People planning outings for friend groups, colleagues, or social circles. They prioritise group fun, shareable moments, and easy logistics over deep content. Costumes, group photos, and live shows make or break their experience. They're likely planning via BookMyShow and comparing options in a group chat.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~20 reviews</span>
+        <span class="badge badge-pct">~5% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I'm planning a group activity in Mumbai, <strong>I want to</strong> find something fun for everyone, <strong>so I can</strong> make sure everyone has a great time.<div class="moment-quote">"Enjoyed a lot here. Will recommend everyone." / "Great fun and Paisa wasool."</div></div>
+    <div class="moment"><strong>When</strong> everyone puts on costumes together, <strong>I want to</strong> take group photos, <strong>so I can</strong> create a shared memory we all cherish.<div class="moment-quote">"Good place to hang out." / "Best place of weekend."</div></div>
+    <div class="moment"><strong>When</strong> I discover the experience, <strong>I want to</strong> immediately recommend it to my friend group, <strong>so I can</strong> be seen as the fun planner.<div class="moment-quote">"Enjoyed a lot here. Will recommend everyone." / "Awesome place to have fun with family."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Social belonging</div>
+      <div class="trigger-pill">Group identity</div>
+      <div class="trigger-pill">Shared laughter</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "The group outing your squad didn't know they needed."</div>
+    <div class="hook"><span class="hook-num">02</span> "Everyone gets a costume. Everyone gets a memory. Book for your group."</div>
+    <div class="hook"><span class="hook-num">03</span> "Weekend plans sorted. Bollywood Park has space for your whole crew."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"good place to hang out"</span><span class="kw">"weekend plans"</span><span class="kw">"enjoyed a lot"</span><span class="kw">"fun with friends"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #636058">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#F1EFE8"><i class="ti ti-alert-triangle" style="font-size:20px;color:#636058" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#9 — The Scam-Aware Vigilant Visitor</div>
+      <div class="persona-desc">Visitors who either encountered or narrowly escaped external scammers near the venue, or discovered internal misconduct (staff charging personal payments). They feel compelled to warn others and value transparency and verified booking channels. Their reviews are public safety posts more than experience reviews.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~15 reviews</span>
+        <span class="badge badge-pct">~4% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> touts on bikes stop my car and claim the park is closed, <strong>I want to</strong> warn others immediately, <strong>so I can</strong> protect future visitors from losing money.<div class="moment-quote">"There is scam happening just before the bollywood park ticket counter. Few people on their bikes stopped my car... Nothing of such thing was real. It was a serious scam."</div></div>
+    <div class="moment"><strong>When</strong> a staff member charges me personally for a free service, <strong>I want to</strong> report it publicly, <strong>so I can</strong> hold management accountable.<div class="moment-quote">"One Mr. Yasmin Arif Sheikh collected Rs.100 from us to put on the costume when it was free... he collected the money for himself by paytm to his number."</div></div>
+    <div class="moment"><strong>When</strong> I want to book tickets, <strong>I want to</strong> find the safest official channel, <strong>so I can</strong> avoid being redirected to fraudulent operators.<div class="moment-quote">"Don't fall in trap for agents." / "Mandatory advance booking via official partners or portals like BookMyShow."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Safety / trust</div>
+      <div class="trigger-pill">Community protection</div>
+      <div class="trigger-pill">Accountability</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "Only book via BookMyShow or our official counter. Don't get redirected."</div>
+    <div class="hook"><span class="hook-num">02</span> "Safe, verified, official — your Bollywood Park experience starts here."</div>
+    <div class="hook"><span class="hook-num">03</span> "Beware of touts. The real experience is inside — and it's worth it."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"serious scam"</span><span class="kw">"don't fall in trap"</span><span class="kw">"official booking"</span><span class="kw">"beware"</span><span class="kw">"paytm to his number"</span>
+    </div>
+  </div>
+</div>
+
+<div class="persona-card" style="border-top:3px solid #3C3489">
+  <div class="persona-header">
+    <div class="persona-icon" style="background:#EEEDFE"><i class="ti ti-star" style="font-size:20px;color:#3C3489" aria-hidden="true"></i></div>
+    <div class="persona-meta">
+      <div class="persona-name">#10 — The Effortless Delighter</div>
+      <div class="persona-desc">Visitors with low expectations or a naturally positive disposition who are easily delighted by any positive touchpoint. They post short, enthusiastic reviews with minimal context — "Amazing!", "Best experience!", "Awesome!" Their volume inflates overall ratings and they're valuable social proof for acquisition campaigns targeting low-intent browsers.</div>
+      <div class="persona-badges">
+        <span class="badge badge-count">~40 reviews</span>
+        <span class="badge badge-pct">~10% share</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Micro-moments</div>
+    <div class="moment"><strong>When</strong> I arrive and the atmosphere hits, <strong>I want to</strong> share my excitement immediately, <strong>so I can</strong> spread the good vibes.<div class="moment-quote">"It was amazing!!!" / "Awesome experience." / "Super excited." / "Wow wow wow…Mumbai film city, worth it."</div></div>
+    <div class="moment"><strong>When</strong> the show is entertaining, <strong>I want to</strong> express pure joy, <strong>so I can</strong> tell everyone it's worth visiting.<div class="moment-quote">"Best experience super." / "It's fantastic experience." / "Feeling awesome."</div></div>
+    <div class="moment"><strong>When</strong> staff helps me, <strong>I want to</strong> acknowledge their warmth, <strong>so I can</strong> give them the credit they deserve.<div class="moment-quote">"Nice studio and staff is best." / "Vary good place. Staff were vary good."</div></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Emotional triggers</div>
+    <div class="triggers-grid">
+      <div class="trigger-pill">Instant gratification</div>
+      <div class="trigger-pill">Positive mood</div>
+      <div class="trigger-pill">Warmth / approval</div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Ad hooks</div>
+    <div class="hook"><span class="hook-num">01</span> "The smiles say it all. See for yourself."</div>
+    <div class="hook"><span class="hook-num">02</span> "10/10 experience. Their words, not ours."</div>
+    <div class="hook"><span class="hook-num">03</span> "Thousands say it's amazing. Come find out why."</div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-title">Keywords from reviews</div>
+    <div class="kw-chips">
+      <span class="kw">"amazing"</span><span class="kw">"best experience"</span><span class="kw">"awesome"</span><span class="kw">"10/10"</span><span class="kw">"worth it"</span><span class="kw">"wow"</span>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-top:1.5rem">
+  <div class="section-title" style="margin-bottom:12px">Persona distribution overview</div>
+  <table class="overview-table">
+    <thead>
+      <tr><th>Rank</th><th>Persona</th><th>Reviews</th><th>Share</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>#1</td><td><span class="dot p1c"></span>The Bollywood Devotee</td><td>~110</td><td>27%</td></tr>
+      <tr><td>#2</td><td><span class="dot p7c"></span>The Disappointed Value Seeker</td><td>~90</td><td>22%</td></tr>
+      <tr><td>#3</td><td><span class="dot p2c"></span>The Family Fun Planner</td><td>~55</td><td>14%</td></tr>
+      <tr><td>#4</td><td><span class="dot p10c"></span>The Effortless Delighter</td><td>~40</td><td>10%</td></tr>
+      <tr><td>#5</td><td><span class="dot p4c"></span>The International Tourist</td><td>~40</td><td>10%</td></tr>
+      <tr><td>#6</td><td><span class="dot p3c"></span>The Memory Maker / Photo Seeker</td><td>~35</td><td>9%</td></tr>
+      <tr><td>#7</td><td><span class="dot p5c"></span>The First-Time Mumbai Tourist</td><td>~30</td><td>7%</td></tr>
+      <tr><td>#8</td><td><span class="dot p6c"></span>The Curious Cinephile</td><td>~25</td><td>6%</td></tr>
+      <tr><td>#9</td><td><span class="dot p8c"></span>The Group Outing Organiser</td><td>~20</td><td>5%</td></tr>
+      <tr><td>#10</td><td><span class="dot p9c"></span>The Scam-Aware Vigilant Visitor</td><td>~15</td><td>4%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
